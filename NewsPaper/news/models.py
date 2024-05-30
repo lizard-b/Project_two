@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Author(models.Model):
     user_rating = models.IntegerField(default=0)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def update_rating(self):
         sum_post_rate = Post.objects.filter()
@@ -21,7 +21,7 @@ class Post(models.Model):  # False - статья, True - новость
     title = models.CharField(max_length=255)
     post_text = models.TextField(default="Здесь пока никто ничего не написал.")
     post_rating = models.IntegerField(default=0)
-    author_id = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category, through='PostCategory')
 
     def like(self):
