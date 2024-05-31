@@ -7,8 +7,26 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def update_rating(self):
-        sum_post_rate = Post.objects.filter()
-        self.user_rating += 1
+        sum_post_rate = 0
+        sum_auth_comm_rate = 0
+        sum_auth_post_comm_rate = 0
+        post_rate_query = Post.objects.filter(author_id=self).values('post_rating')
+        for d in post_rate_query:
+            for k in d.keys():
+                sum_post_rate += d[k]
+        auth_comm_rate_query = Comment.objects.filter(user_id=self.user_id).values('comment_rating')
+        for d in auth_comm_rate_query:
+            for k in d.keys():
+                sum_auth_comm_rate += d[k]
+        post_id_query = Post.objects.filter(author_id=self).values('id')
+        for d in post_id_query:
+            for k in d.keys():
+                cur_post_rating_query = Comment.objects.filter(post_id_id=d[k]).values('comment_rating')
+                for _ in cur_post_rating_query:
+                    for i in _.keys():
+                        sum_auth_post_comm_rate += _[i]
+        self.user_rating = (sum_post_rate * 3) + sum_auth_comm_rate + sum_auth_post_comm_rate
+        self.save()
 
 
 class Category(models.Model):
