@@ -200,7 +200,9 @@ post4.like()
 # aut_1 = Author.objects.get(pk=3)
 # aut_2 = Author.objects.get(pk=4)
 
-Author.objects.all().order_by('-user_rating').values('user_id', 'user_rating').first()
+best_user = Author.objects.all().order_by('-user_rating').values('user_rating', 'id').first()
 
-Post.objects.all().order_by('-post_rating').values('post_time_in', 'author_id', 'post_rating', 'title').first()
+best_post = Post.objects.all().order_by('-post_rating').values('post_time_in', 'author_id', 'post_rating', 'title').first()
 
+best_post_comm = ''
+# Author.objects.get(pk=2).user.username
