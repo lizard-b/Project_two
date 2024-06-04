@@ -21,7 +21,7 @@ class Product(models.Model):
     )
 
     def __str__(self):
-        return f'{self.name.title()}: {self.description[:20]}'
+        return f'{self.name.title()}: {self.description[:50]}'
 
 
 # Категория, к которой будет привязываться товар
