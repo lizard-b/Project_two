@@ -32,6 +32,9 @@ class Author(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.name.title()
+
 
 class Post(models.Model):  # False - статья, True - новость
     post_time_in = models.DateTimeField(auto_now_add=True)
@@ -40,7 +43,8 @@ class Post(models.Model):  # False - статья, True - новость
     post_text = models.TextField(default="Здесь пока никто ничего не написал.")
     post_rating = models.IntegerField(default=0)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    categories = models.ManyToManyField(Category, through='PostCategory')
+    categories = models.ManyToManyField(Category, through='PostCategory',
+                                        related_name='post',)
 
     def like(self):
         self.post_rating += 1
@@ -52,6 +56,9 @@ class Post(models.Model):  # False - статья, True - новость
 
     def preview(self):
         return self.post_text[:124] + '...'
+
+    def __str__(self):
+        return f'{self.title.title()}: {self.post_text[:224]}'
 
 
 class Comment(models.Model):
