@@ -1,13 +1,23 @@
 <!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
 
-<!-- Название у нас будет post -->
 {% block title %}
 Post
 {% endblock title %}
 
-<!-- В контенте на странице мы выводим все товары -->
 {% block content %}
-<h1>Все новости:</h1>
-{{ post }}
+    <h1>Текущая новость/статья</h1>
+    <hr>
+    {% if post %}
+        <dl>
+            <dt>Заголовок<dt>
+            <dd>{{post.title}}</dd>
+            <dt>Дата публикации<dt>
+            <dd>{{post.post_time_in|date:'M d Y'}}</dd>
+            <dt>Текст статьи<dt>
+            <dd>{{post.post_text}}</dd>
+        </dl>
+    {% else %}
+       <h3>Такого поста нет!</h3>
+   {% endif %}
 {% endblock content %}

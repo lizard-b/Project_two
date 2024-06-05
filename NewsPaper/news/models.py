@@ -58,7 +58,7 @@ class Post(models.Model):  # False - статья, True - новость
         return self.post_text[:124] + '...'
 
     def __str__(self):
-        return f'{self.title.title()}: {self.post_text[:224]}'
+        return f'{self.title.title()}: {self.post_text}'
 
 
 class Comment(models.Model):
