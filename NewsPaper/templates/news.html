@@ -1,0 +1,31 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Post
+{% endblock title %}
+
+{% block content %}
+   <h1>Все новости</h1>
+   <h3>На текущий момент их {{news|length}}</h3>
+   <hr>
+   {% if news %}
+       <table>
+           <tr>
+               <td style="font-size: 16px; font-weight: bold;">Заголовок</td>
+               <td style="font-size: 16px; font-weight: bold;">Дата публикации</td>
+               <td style="font-size: 16px; font-weight: bold;">Превью</td>
+           </tr>
+           {% for post in news %}
+           <tr>
+               <td>{{post.title}}</td>
+               <td>{{post.post_time_in|date:'M d Y'}}</td>
+               <td>{{post.post_text|truncatechars:20}}</td>
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>Новостей нет!</h2>
+   {% endif %}
+{% endblock content %}
