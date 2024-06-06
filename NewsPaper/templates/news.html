@@ -1,6 +1,8 @@
 <!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
 
+{% load custom_filters %}
+
 {% block title %}
 Post
 {% endblock title %}
@@ -18,9 +20,9 @@ Post
            </tr>
            {% for post in news %}
            <tr>
-               <td>{{post.title}}</td>
+               <td>{{post.title|censor}}</td>
                <td>{{post.post_time_in|date:'M d Y'}}</td>
-               <td>{{post.post_text|truncatechars:20}}</td>
+               <td>{{post.post_text|truncatechars:20|censor}}</td>
            </tr>
            {% endfor %}
 
