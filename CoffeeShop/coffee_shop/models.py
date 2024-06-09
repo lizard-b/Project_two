@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime, timezone
 from .resources import POSITIONS
 from django.core.validators import MinValueValidator
+from django.urls import reverse
 
 
 class Product(models.Model):
@@ -22,6 +23,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name.title()}: {self.description[:50]}'
+
+    def get_absolute_url(self):
+        return reverse('product_detail', args=[str(self.id)])
 
 
 # Категория, к которой будет привязываться товар
