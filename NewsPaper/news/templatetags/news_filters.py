@@ -1,5 +1,4 @@
 from django import template
-
 register = template.Library()
 
 censor_filter = ['Хер', 'Херня', 'Блядь', 'Сука', 'Пиздец', 'Хуй', 'Говно', 'Дерьмо',
