@@ -1,4 +1,5 @@
 from django import template
+# from filter_res import CURRENCIES_SYMBOLS
 
 register = template.Library()
 
