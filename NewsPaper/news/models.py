@@ -1,10 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Author(models.Model):
     user_rating = models.IntegerField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+
+    def __str__(self):
+        return self.user.username.title()
 
     def update_rating(self):
         sum_post_rate = 0
@@ -58,7 +62,10 @@ class Post(models.Model):  # False - статья, True - новость
         return self.post_text[:124] + '...'
 
     def __str__(self):
-        return f'{self.title.title()}: {self.post_text}'
+        return f'{self.title.title()}: {self.post_text[:124]}'
+
+    def get_absolute_url(self):
+        return reverse('post', args=[str(self.id)])
 
 
 class Comment(models.Model):
@@ -81,5 +88,7 @@ class PostCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.category.name.title()}: {self.post.title.title()}'
 
 # Create your models here.
