@@ -87,12 +87,15 @@ class Comment(models.Model):
         self.comment_rating -= 1
         self.save()
 
+    def __str__(self):
+        return f'{self.user.username.title()}: {self.comment_text}'
+
 
 class PostCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.category.name.title()}: {self.post.title.title()}'
+        return f'{self.category.name.title()}: {self.post.title}'
 
 # Create your models here.
