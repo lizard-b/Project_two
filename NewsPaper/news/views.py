@@ -60,8 +60,8 @@ class PostCreate(CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        if self.request.path == 'news/create/':
-            post.post_type = True
+        if self.request.path == 'articles/create/':
+            post.post_type = False
         return super().form_valid(form)
 
 

@@ -42,7 +42,7 @@ class Category(models.Model):
 
 class Post(models.Model):  # False - статья, True - новость
     post_time_in = models.DateTimeField(auto_now_add=True)
-    post_type = models.BooleanField(default=False)
+    post_type = models.BooleanField(default=True)
     title = models.CharField(max_length=255)
     post_text = models.TextField(default="Здесь пока никто ничего не написал.")
     post_rating = models.IntegerField(default=0)

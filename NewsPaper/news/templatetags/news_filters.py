@@ -1,8 +1,6 @@
+from .filters_res import censor_filter
 from django import template
 register = template.Library()
-
-censor_filter = ['Хер', 'Херня', 'Блядь', 'Сука', 'Пиздец', 'Хуй', 'Говно', 'Дерьмо',
-                 'Гондон', 'Пидор', 'Ебать', 'Урод', 'Fuck', 'Piss', 'Pussy', 'Bitch', 'Shit']
 
 
 @register.filter()
