@@ -1,6 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (ListView, DetailView,
-                                  CreateView, UpdateView, DeleteView)
+                                  CreateView, UpdateView, DeleteView, TemplateView)
 
 from datetime import datetime
 from .models import Post, Category
@@ -66,7 +67,7 @@ class PostCreate(CreateView):
         return super().form_valid(form)
 
 
-class PostUpdate(UpdateView):
+class PostUpdate(LoginRequiredMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
