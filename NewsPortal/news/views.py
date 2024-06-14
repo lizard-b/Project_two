@@ -9,7 +9,7 @@ from .filters import NewsFilter
 from .forms import PostForm
 
 
-class NewsList(ListView):
+class NewsList(LoginRequiredMixin, ListView):
 
     model = Post
     ordering = 'post_time_in'
@@ -29,14 +29,14 @@ class NewsList(ListView):
         return context
 
 
-class PostDetail(DetailView):
+class PostDetail(LoginRequiredMixin, DetailView):
 
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
 
 
-class NewsSearch(ListView):
+class NewsSearch(LoginRequiredMixin, ListView):
     model = Post
     ordering = '-post_time_in'
     template_name = 'news_search.html'
@@ -54,7 +54,7 @@ class NewsSearch(ListView):
         return context
 
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post_create.html'
@@ -75,7 +75,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
     context_object_name = 'edit'
 
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
     context_object_name = 'delete'
