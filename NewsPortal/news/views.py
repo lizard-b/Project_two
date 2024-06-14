@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -12,7 +12,7 @@ from .filters import NewsFilter
 from .forms import PostForm
 
 
-class NewsList(LoginRequiredMixin, ListView):
+class NewsList(ListView):
 
     model = Post
     ordering = 'post_time_in'
@@ -32,14 +32,14 @@ class NewsList(LoginRequiredMixin, ListView):
         return context
 
 
-class PostDetail(LoginRequiredMixin, DetailView):
+class PostDetail(DetailView):
 
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
 
 
-class NewsSearch(LoginRequiredMixin, ListView):
+class NewsSearch(ListView):
     model = Post
     ordering = '-post_time_in'
     template_name = 'news_search.html'
@@ -57,7 +57,8 @@ class NewsSearch(LoginRequiredMixin, ListView):
         return context
 
 
-class PostCreate(LoginRequiredMixin, CreateView):
+class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ('news.add_post',)
     model = Post
     form_class = PostForm
     template_name = 'post_create.html'
@@ -71,14 +72,16 @@ class PostCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class PostUpdate(LoginRequiredMixin, UpdateView):
+class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
     context_object_name = 'edit'
 
 
-class PostDelete(LoginRequiredMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ('news.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     context_object_name = 'delete'
