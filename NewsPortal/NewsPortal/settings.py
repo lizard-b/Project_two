@@ -103,10 +103,14 @@ SOCIALACCOUNT_PROVIDERS = {
             'email',
         ],
         'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
+            'access_type': 'offline',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+        'FETCH_USERINFO': True
     }
 }
+
+SITE_URL = 'http://127.0.0.1:8000'
 
 WSGI_APPLICATION = 'NewsPortal.wsgi.application'
 
