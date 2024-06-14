@@ -1,11 +1,12 @@
 from django.urls import path
-from .views import (NewsList, PostDetail, NewsSearch, PostCreate, PostUpdate, PostDelete)
-
+from .views import (NewsList, PostDetail, NewsSearch, PostCreate, PostUpdate, PostDelete, PersonalPage)
+from .views import upgrade_me
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
 
-   path('', NewsList.as_view(), name='post_list'),
-   path('<int:pk>', PostDetail.as_view(), name='post'),
+   path('news/', NewsList.as_view(), name='post_list'),
+   path('news/<int:pk>', PostDetail.as_view(), name='post'),
    path('news/search/', NewsSearch.as_view(), name='search'),
    path('news/create/', PostCreate.as_view(), name='create'),
    path('news/<int:pk>/edit', PostUpdate.as_view(), name='edit'),
@@ -13,4 +14,8 @@ urlpatterns = [
    path('articles/create/', PostCreate.as_view(), name='articles_create'),
    path('articles/<int:pk>/edit', PostUpdate.as_view(), name='articles_edit'),
    path('articles/<int:pk>/delete', PostDelete.as_view(), name='articles_delete'),
+   path('personal/', PersonalPage.as_view(), name='personal_page'),
+   path('', PersonalPage.as_view(), name='personal_page'),
+   path('upgrade/', upgrade_me, name='upgrade'),
+   path('logout/', LogoutView.as_view(template_name='news/logout.html'), name='logout'),
 ]
