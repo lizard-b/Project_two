@@ -1,8 +1,8 @@
 {% extends 'flatpages/default.html' %}
 
-{% load custom_filters %}
+{% load news_filters %}
 
-{% load custom_tags %}
+{% load news_tags %}
 
 {% block title %}
 Posts
@@ -15,34 +15,24 @@ Posts
         <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm ">Подписаться</a></p>
 
     {% endif %}
-   <h2>ВСЕ НОВОСТИ</h2>
+   <h2>Все посты в категории {{category}} </h2>
     <h3>{{ time_in|date:'d.m.Y' }}</h3>
 {% if category_news_list %}
-<form method="get">
-    {{ filter.form }}
-    <input type="submit" value="Найти">
-</form>
  <table>
            <tr>
-               <td>АВТОР</td>
-               <td>ЗАГОЛОВОК</td>
-               <td>КАТЕГОРИИ</td>
-               <td>ДАТА</td>
-               <td>ПОСТ</td>
-               <td>ТИП</td>
+               <td style="font-size: 16px; font-weight: bold;">Автор</td>
+               <td style="font-size: 16px; font-weight: bold;">Заголовок</td>
+               <td style="font-size: 16px; font-weight: bold;">Дата</td>
+               <td style="font-size: 16px; font-weight: bold;">Превью</td>
+               <td style="font-size: 16px; font-weight: bold;">Тип поста</td>
            </tr>
       {% for post in category_news_list %}
            <tr>
                <td>{{ post.author}}</td>
-               <td>{{ post.title|censor }}</td>
-               <td>
-                {% for category in post.category.all %}
-                <a href="{% url 'category_list' category.id %}">{{ category }}</a>
-                {% endfor %}
-               </td>
-               <td>{{ post.creation_time|date:'d.m.Y' }}</td>
-               <td>{{ post.text|truncatechars:20|censor }}</td>
-               <td>{{ post.get_type_display }}</td>
+               <td><a href="{% url 'post' post.id %}">{{ post.title|censor }}</a></td>
+               <td>{{ post.post_time_in|date:'d.m.Y' }}</td>
+               <td>{{ post.post_text|truncatechars:35|censor }}</td>
+               <td>{{ post.get_post_type_display }}</td>
            </tr>
      {% endfor %}
  </table>

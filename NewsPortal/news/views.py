@@ -110,10 +110,11 @@ class CategoryListView(ListView):
     model = Post
     template_name = 'category_list.html'
     context_object_name = 'category_news_list'
+    paginate_by = 10
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, id=self.kwargs['pk'])
-        queryset = Post.objects.filter(category=self.category).order_by('-creation_time')
+        queryset = Post.objects.filter(categories=self.category).order_by('-post_time_in')
         return queryset
 
     def get_context_data(self, **kwargs):
