@@ -2,4 +2,11 @@
 
 {% block content %}
 <h2> Вы вышли из системы. Мы по вам уже скучаем!</h2>
+
+<h2> Для входа в систему нажмите кнопку: </h2>
+    <form method="post" action="{% url 'personal_page' %}">
+        {% csrf_token %}
+        <button type="submit">Войти</button>
+    </form>
+
 {% endblock %}
