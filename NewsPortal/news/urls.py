@@ -15,7 +15,6 @@ urlpatterns = [
    path('articles/<int:pk>/edit', PostUpdate.as_view(), name='articles_edit'),
    path('articles/<int:pk>/delete', PostDelete.as_view(), name='articles_delete'),
    path('personal/', PersonalPage.as_view(), name='personal_page'),
-   path('', PersonalPage.as_view(), name='personal_page'),
    path('upgrade/', upgrade_me, name='upgrade'),
    path('logout/', LogoutView.as_view(template_name='news/logout.html'), name='logout'),
    path('categories/<int:pk>', CategoryListView.as_view(), name='category_list'),

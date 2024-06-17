@@ -1,11 +1,15 @@
-{% extends "main.html" %}
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Personal
+{% endblock title %}
 
 {% block content %}
 <h2>Страница авторизованного пользователя {{request.user.username}}.</h2>
 <div> Скоро здесь появится ваша персональная информация. </div>
 
 
-<h2> Для выхода из системы нажмите кнопку: </h2>
+<h6> Для выхода из системы нажмите кнопку: </h6>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit">Выйти</button>
