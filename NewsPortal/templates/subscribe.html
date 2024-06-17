@@ -3,8 +3,8 @@
 {% block content %}
 
 <h2 class="text-center">{{ message }} {{ category }} </h2>
-<h3> Вернуться к списку постов данной категории: </h3>
-    <form method="post" action="{% url 'category_list' category.id %}">
+<h5> Вернуться к списку постов данной категории: </h5>
+    <form method="get" action="{% url 'category_list' category.id %}">
         {% csrf_token %}
         <button type="submit">Назад</button>
     </form>

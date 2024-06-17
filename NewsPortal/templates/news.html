@@ -22,7 +22,7 @@ Post
            </tr>
            {% for post in news %}
            <tr>
-               <td>{{post.title|censor}}</td>
+               <td><a href="{% url 'post' post.id %}">{{ post.title|censor }}</a></td>
                <td>{{post.post_time_in|date:'M d Y'}}</td>
                <td>{{post.post_text|truncatechars:20|censor}}</td>
                <td>
@@ -61,5 +61,11 @@ Post
            <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
+
+<h6> На страницу поиска: </h6>
+    <form method="get" action="{% url 'search' %}">
+        {% csrf_token %}
+        <button type="submit">Перейти</button>
+    </form>
 
 {% endblock content %}

@@ -16,7 +16,7 @@ Posts
 
     {% endif %}
    <h2>Все посты в категории {{category}} </h2>
-    <h3>{{ time_in|date:'d.m.Y' }}</h3>
+
 {% if category_news_list %}
  <table>
            <tr>
@@ -37,8 +37,9 @@ Posts
      {% endfor %}
  </table>
 {% else %}
-       <h2>Публикаций нет!</h2>
-   {% endif %}
+    <h2>Публикаций нет!</h2>
+{% endif %}
+
  {# Добавляем пагинацию на страницу #}
 
    {# Информация о предыдущих страницах #}
@@ -61,5 +62,11 @@ Posts
             <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
+
+<h6> Для возврата на главную страницу нажмите кнопку: </h6>
+    <form method="get" action="{% url 'post_list' %}">
+        {% csrf_token %}
+        <button type="submit">Перейти</button>
+    </form>
 
 {% endblock content %}
