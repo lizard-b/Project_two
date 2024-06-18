@@ -13,6 +13,7 @@ import os
 from django.urls import reverse_lazy
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -176,3 +177,13 @@ SOCIALACCOUNT_PROVIDERS = {
         'FETCH_USERINFO': True
     }
 }
+
+EMAIL_HOST = 'smt.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.getenv('DEFAULT_FROM_EMAIL')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
