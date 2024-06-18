@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirming registration on NewsPortal</title>
+</head>
+<body>
+    {% load account %}
+    <h3>Спасибо за регистрацию, {{user.username}}!</h3>
+    <h6>Пожалуйста, нажмите <a href="{{ activate_url }}">сюда</a> для подтверждения почты.</h6>
+</body>
+</html>

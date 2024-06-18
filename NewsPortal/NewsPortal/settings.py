@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'news.apps.NewsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,7 +47,6 @@ INSTALLED_APPS = [
 
     'django_filters',
     'accounts',
-    'news',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -187,5 +187,4 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_EMAIL')
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
