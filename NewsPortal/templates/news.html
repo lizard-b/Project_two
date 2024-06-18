@@ -11,6 +11,11 @@ Post
    <h1>Новости</h1>
    <h3>Всего на странице: {{news|length}}</h3>
 
+   <form method="get" action="{% url 'create' %}">
+        {% csrf_token %}
+        <button type="submit">Написать пост</button>
+   </form>
+
    <hr>
    {% if news %}
        <table>
