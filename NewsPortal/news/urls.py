@@ -1,10 +1,11 @@
 from django.urls import path
 from .views import (NewsList, PostDetail, NewsSearch, PostCreate, PostUpdate,
                     PostDelete, PersonalPage, CategoryListView, subscribe, upgrade_me)
-from django.contrib.auth.views import LoginView, LogoutView
+from allauth.account.views import LogoutView, LoginView
 
 urlpatterns = [
 
+   path('', NewsList.as_view(), name='post_list'),
    path('news/', NewsList.as_view(), name='post_list'),
    path('news/<int:pk>', PostDetail.as_view(), name='post'),
    path('news/search/', NewsSearch.as_view(), name='search'),
