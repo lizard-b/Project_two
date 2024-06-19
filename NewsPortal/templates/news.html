@@ -9,11 +9,16 @@ Post
 
 {% block content %}
    <h1>Новости</h1>
-   <h3>Всего на странице: {{news|length}}</h3>
+   <h3>Всего на странице: {{news|length}}</h3>&nbsp;
 
    <form method="get" action="{% url 'create' %}">
         {% csrf_token %}
         <button type="submit">Написать новость</button>
+   </form>&nbsp;
+
+   <form method="get" action="{% url 'articles_create' %}">
+        {% csrf_token %}
+        <button type="submit">Написать статью</button>
    </form>
 
    <hr>
@@ -67,7 +72,7 @@ Post
        {% endif %}
    {% endif %}
 
-<h6> На страницу поиска: </h6>
+    <h6> На страницу поиска: </h6>
     <form method="get" action="{% url 'search' %}">
         {% csrf_token %}
         <button type="submit">Перейти</button>
