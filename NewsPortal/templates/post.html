@@ -9,6 +9,16 @@ Post
 
 {% block content %}
     <h1>Текущая новость/статья</h1>
+    <form method="get" action="{% url 'create' %}">
+        {% csrf_token %}
+        <button type="submit">Написать новость</button>
+    </form>&nbsp;
+
+    <form method="get" action="{% url 'articles_create' %}">
+        {% csrf_token %}
+        <button type="submit">Написать статью</button>
+    </form>
+
     <hr>
     {% if post %}
         <dl>

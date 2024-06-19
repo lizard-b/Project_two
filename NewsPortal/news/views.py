@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
@@ -6,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import (ListView, DetailView,
                                   CreateView, UpdateView, DeleteView, TemplateView)
 
-from datetime import datetime
+
 from .models import Post, Category
 from .filters import NewsFilter
 from .forms import PostForm
@@ -55,9 +57,13 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
+        today = datetime.date.today()
+        post_limit = Post.objects.filter(author=post.author, post_time_in__date=today).count()
+        if post_limit >= 3:
+            return render(self.request, 'post_limit.html', {'author': post.author})
         if self.request.path == '/news/create/':
             post.post_type = 'NEW'
-            post.save()
+        post.save()
         return super().form_valid(form)
 
 
