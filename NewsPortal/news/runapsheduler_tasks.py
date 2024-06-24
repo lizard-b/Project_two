@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 from news.models import Post, Category
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -6,8 +6,8 @@ from django.core.mail import EmailMultiAlternatives
 
 
 def posts_weekly_notification():
-    today = datetime.datetime.now()
-    last_week = today - datetime.timedelta(days=7)
+    today = timezone.now()
+    last_week = today - timezone.timedelta(days=7)
     posts = Post.objects.filter(post_time_in__gte=last_week)
     categories = set(posts.values_list('categories__name', flat=True))
     subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers__email', flat=True))

@@ -14,8 +14,8 @@ app.conf.beat_schedule = {
         'task': 'news.tasks.notify_about_new_post',
         'schedule': crontab(minute='*/15'),
     },
-    'send_week_notification_every_week': {
-        'task': 'news.tasks.send_week_notification',
+    'send_week_notification': {
+        'task': 'news.tasks.posts_weekly_notification',
         'schedule': crontab(hour=8, minute=0, day_of_week='monday'),
     }
 }
