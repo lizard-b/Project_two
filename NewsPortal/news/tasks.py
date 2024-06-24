@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 from celery import shared_task
 
 from django.core.mail import EmailMultiAlternatives
@@ -10,18 +10,17 @@ from .models import *
 
 @shared_task()
 def notify_about_new_post():
-    now = datetime.datetime.now()
-    last_hour = now - datetime.timedelta(hours=1)
+    last_hour = timezone.now() - timezone.timedelta(hours=1)
     new_posts = Post.objects.filter(post_time_in__gte=last_hour)
-    categories = set(new_posts.values_list('category__name', flat=True))
+    categories = set(new_posts.values_list('categories__name', flat=True))
     subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers__email',
-                                                                               'subscribers__username', flat=True))
+                                                                               'subscribers__username'))
     for post in new_posts:
         for subscriber in subscribers:
             html_content = render_to_string(
                 'post_created_email.html',
                 {
-                    'username': subscriber.username,
+                    'username': subscriber[1],
                     'text': post.preview(),
                     'link': f'{settings.SITE_URL}/news/{post.id}',
                 }
@@ -31,7 +30,7 @@ def notify_about_new_post():
                 subject=post.title,
                 body='',
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                to=subscriber.email,
+                to=[subscriber[0]],
 
             )
 
@@ -41,10 +40,10 @@ def notify_about_new_post():
 
 @shared_task()
 def posts_weekly_notification():
-    today = datetime.datetime.now()
-    last_week = today - datetime.timedelta(days=7)
+    today = timezone.now()
+    last_week = today - timezone.timedelta(days=7)
     posts = Post.objects.filter(post_time_in__gte=last_week)
-    categories = set(posts.values_list('category__name', flat=True))
+    categories = set(posts.values_list('categories__name', flat=True))
     subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers__email', flat=True))
 
     html_content = render_to_string('cat_weekly_posts.html', {

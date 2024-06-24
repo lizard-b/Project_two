@@ -9,7 +9,7 @@ def posts_weekly_notification():
     today = datetime.datetime.now()
     last_week = today - datetime.timedelta(days=7)
     posts = Post.objects.filter(post_time_in__gte=last_week)
-    categories = set(posts.values_list('category__name', flat=True))
+    categories = set(posts.values_list('categories__name', flat=True))
     subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers__email', flat=True))
 
     html_content = render_to_string('cat_weekly_posts.html', {
