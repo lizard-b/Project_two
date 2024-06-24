@@ -1,45 +1,62 @@
+import datetime
 from celery import shared_task
 
 from django.core.mail import EmailMultiAlternatives
-from django.db.models.signals import m2m_changed
-from django.dispatch import receiver
 from django.template.loader import render_to_string
 
 from django.conf import settings
 from .models import *
 
 
-def send_notifications(preview, pk, title, subscribers):
-    for subscriber in subscribers:
-        html_content = render_to_string(
-            'post_created_email.html',
-            {
-                'username': subscriber.username,
-                'text': preview,
-                'link': f'{settings.SITE_URL}/news/{pk}',
-            }
-        )
+@shared_task()
+def notify_about_new_post():
+    now = datetime.datetime.now()
+    last_30_min = now - datetime.timedelta(minutes=30)
+    new_posts = Post.objects.filter(post_time_in__gte=last_30_min)
+    categories = set(new_posts.values_list('category__name', flat=True))
+    subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers__email',
+                                                                               'subscribers__username', flat=True))
+    for post in new_posts:
+        for subscriber in subscribers:
+            html_content = render_to_string(
+                'post_created_email.html',
+                {
+                    'username': subscriber.username,
+                    'text': post.preview(),
+                    'link': f'{settings.SITE_URL}/news/{post.id}',
+                }
+            )
 
-        msg = EmailMultiAlternatives(
-            subject=title,
-            body='',
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            to=[subscriber.email],
+            msg = EmailMultiAlternatives(
+                subject=post.title,
+                body='',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=subscriber.email,
 
-        )
+            )
 
-        msg.attach_alternative(html_content, 'text/html')
-        msg.send()
+            msg.attach_alternative(html_content, 'text/html')
+            msg.send()
 
 
-@receiver(m2m_changed, sender=PostCategory)
-def notify_about_new_post(sender, instance, **kwargs):
-    if kwargs['action'] == 'post_add':
-        category = instance.categories.all()
-        subscribers_users = []
+@shared_task()
+def posts_weekly_notification():
+    today = datetime.datetime.now()
+    last_week = today - datetime.timedelta(days=7)
+    posts = Post.objects.filter(post_time_in__gte=last_week)
+    categories = set(posts.values_list('category__name', flat=True))
+    subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers__email', flat=True))
 
-        for cat in category:
-            subscribers = cat.subscribers.all()
-            subscribers_users += [s for s in subscribers]
+    html_content = render_to_string('cat_weekly_posts.html', {
+        'link': settings.SITE_URL,
+        'posts': posts, }
+    )
 
-        send_notifications(instance.preview(), instance.pk, instance.title, subscribers_users)
+    msg = EmailMultiAlternatives(
+        subject='Статьи в любимой категории за неделю',
+        body='',
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=subscribers,
+    )
+    msg.attach_alternative(html_content, 'text/html')
+    msg.send()
