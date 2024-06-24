@@ -11,8 +11,8 @@ from .models import *
 @shared_task()
 def notify_about_new_post():
     now = datetime.datetime.now()
-    last_30_min = now - datetime.timedelta(minutes=30)
-    new_posts = Post.objects.filter(post_time_in__gte=last_30_min)
+    last_hour = now - datetime.timedelta(hours=1)
+    new_posts = Post.objects.filter(post_time_in__gte=last_hour)
     categories = set(new_posts.values_list('category__name', flat=True))
     subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers__email',
                                                                                'subscribers__username', flat=True))

@@ -9,7 +9,7 @@ from django.views.generic import (ListView, DetailView,
                                   CreateView, UpdateView, DeleteView, TemplateView)
 
 
-from .models import Post, Category
+from .models import Post, Category, Author
 from .filters import NewsFilter
 from .forms import PostForm
 
@@ -98,6 +98,8 @@ def upgrade_me(request):
     authors_group = Group.objects.get(name='authors')
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
+        if not Author.objects.filter(user=user).exists():
+            Author.objects.create(user=user)
     return redirect('/')
 
 
