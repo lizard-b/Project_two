@@ -12,6 +12,7 @@ from django.views.generic import (ListView, DetailView,
 from .models import Post, Category, Author
 from .filters import NewsFilter
 from .forms import PostForm
+from django.core.cache import cache
 
 
 class NewsList(ListView):
@@ -28,6 +29,15 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
+    queryset = Post.objects.all()
+
+    def get_object(self, *args, **kwargs):
+        obj = cache.get(f'product-{self.kwargs["pk"]}', None)
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'product-{self.kwargs["pk"]}', obj)
+
+        return obj
 
 
 class NewsSearch(ListView):

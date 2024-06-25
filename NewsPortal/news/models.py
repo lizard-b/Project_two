@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from .resources import *
+from django.core.cache import cache
 
 
 class Author(models.Model):
@@ -70,6 +71,10 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post', args=[str(self.id)])
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # сначала вызываем метод родителя, чтобы объект сохранился
+        cache.delete(f'product-{self.pk}')  # затем удаляем его из кэша, чтобы сбросить его
 
 
 class Comment(models.Model):
