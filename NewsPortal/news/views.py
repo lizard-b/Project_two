@@ -13,6 +13,7 @@ from .models import Post, Category, Author
 from .filters import NewsFilter
 from .forms import PostForm
 from django.core.cache import cache
+from .tasks import notify_about_new_post
 
 
 class NewsList(ListView):
@@ -74,6 +75,7 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         if self.request.path == '/news/create/':
             post.post_type = 'NEW'
         post.save()
+        notify_about_new_post.delay([post.pk])
         return super().form_valid(form)
 
 

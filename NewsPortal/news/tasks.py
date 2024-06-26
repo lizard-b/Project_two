@@ -9,33 +9,31 @@ from .models import *
 
 
 @shared_task()
-def notify_about_new_post():
-    last_hour = timezone.now() - timezone.timedelta(hours=1)
-    new_posts = Post.objects.filter(post_time_in__gte=last_hour)
-    categories = set(new_posts.values_list('categories__name', flat=True))
+def notify_about_new_post(oid):
+    post = Post.objects.get(pk=oid)
+    categories = set(Post.objects.filter(pk=oid).values_list('categories__name', flat=True))
     subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers__email',
                                                                                'subscribers__username'))
-    for post in new_posts:
-        for subscriber in subscribers:
-            html_content = render_to_string(
-                'post_created_email.html',
-                {
-                    'username': subscriber[1],
-                    'text': post.preview(),
-                    'link': f'{settings.SITE_URL}/news/{post.id}',
-                }
-            )
+    for subscriber in subscribers:
+        html_content = render_to_string(
+            'post_created_email.html',
+            {
+                'username': subscriber[1],
+                'text': post.preview(),
+                'link': f'{settings.SITE_URL}/news/{post.id}',
+            }
+        )
 
-            msg = EmailMultiAlternatives(
-                subject=post.title,
-                body='',
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[subscriber[0]],
+        msg = EmailMultiAlternatives(
+            subject=post.title,
+            body='',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[subscriber[0]],
 
-            )
+        )
 
-            msg.attach_alternative(html_content, 'text/html')
-            msg.send()
+        msg.attach_alternative(html_content, 'text/html')
+        msg.send()
 
 
 @shared_task()
