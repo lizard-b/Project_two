@@ -75,7 +75,7 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         if self.request.path == '/news/create/':
             post.post_type = 'NEW'
         post.save()
-        notify_about_new_post.delay([post.pk])
+        notify_about_new_post.delay(post.pk)
         return super().form_valid(form)
 
 
