@@ -1,0 +1,13 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Post update & delete notification
+{% endblock title %}
+
+{% block content %}
+
+<h4>Уважаемый {{request.user.username}}, на портале редактировать или удалять пост может только его автор!</h4>
+
+<button onclick="history.go(-2)">Назад к посту</button>
+
+{% endblock %}

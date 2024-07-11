@@ -1,5 +1,6 @@
 import datetime
 
+from django.http import HttpResponseForbidden, request
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
@@ -85,6 +86,17 @@ class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
     template_name = 'post_edit.html'
     context_object_name = 'edit'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['is_author'] = Post.objects.filter().exists()
+    #     return context
+    #
+    # def form_valid(self, form):
+    #     post = form.save(commit=False)
+    #     if self.request.user.username != post.author:
+    #         return render(self.request, 'post_del_upd_restrict.html')
+    #     return super().form_valid(form)
 
 
 class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):

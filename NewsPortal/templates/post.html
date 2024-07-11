@@ -33,6 +33,11 @@ Post
        <h3>Такого поста нет!</h3>
    {% endif %}
 
+    <form method="get" action="{% url 'edit' post.id %}">
+        {% csrf_token %}
+        <button type="submit">Редактировать</button>
+    </form>&nbsp;
+
 <h6> Для возврата на главную страницу нажмите кнопку: </h6>
     <form method="get" action="{% url 'post_list' %}">
         {% csrf_token %}
