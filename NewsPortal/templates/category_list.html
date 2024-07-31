@@ -1,7 +1,7 @@
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
 {% load news_filters %}
-
 {% load news_tags %}
 
 {% block title %}
@@ -12,19 +12,19 @@ Posts
 {% block content %}
 
     {% if is_not_subscriber %}
-        <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm ">Подписаться</a></p>
+        <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm ">{% translate "Subscribe" %}</a></p>
 
     {% endif %}
-   <h2>Все посты в категории {{category}} </h2>
+   <h2>{% blocktranslate %}All posts in category {{category}}{% endblocktranslate %}</h2>
 
 {% if category_news_list %}
  <table>
            <tr>
-               <td style="font-size: 16px; font-weight: bold;">Автор</td>
-               <td style="font-size: 16px; font-weight: bold;">Заголовок</td>
-               <td style="font-size: 16px; font-weight: bold;">Дата</td>
-               <td style="font-size: 16px; font-weight: bold;">Превью</td>
-               <td style="font-size: 16px; font-weight: bold;">Тип поста</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Author" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Title" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Date" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Preview" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Post type" %}</td>
            </tr>
       {% for post in category_news_list %}
            <tr>
@@ -37,7 +37,7 @@ Posts
      {% endfor %}
  </table>
 {% else %}
-    <h2>Публикаций нет!</h2>
+    <h2>{% translate "There are no posts!" %}</h2>
 {% endif %}
 
  {# Добавляем пагинацию на страницу #}
@@ -63,10 +63,10 @@ Posts
        {% endif %}
    {% endif %}
 
-<h6> Для возврата на главную страницу нажмите кнопку: </h6>
+<h6> {% translate "Back to Home page: " %} </h6>
     <form method="get" action="{% url 'post_list' %}">
         {% csrf_token %}
-        <button type="submit">Перейти</button>
+        <button type="submit">{% translate "Go" %}</button>
     </form>
 
 {% endblock content %}

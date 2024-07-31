@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Post
+from django.utils.translation import gettext as _
 
 
 class PostForm(forms.ModelForm):
@@ -19,7 +20,7 @@ class PostForm(forms.ModelForm):
 
         if title == post_text:
             raise ValidationError(
-                "Текст поста не должен быть идентичен названию."
+                _("Post text should not be the same as post title.")
             )
 
         return cleaned_data

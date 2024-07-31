@@ -1,0 +1,276 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-31 16:10+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: news/forms.py:23
+msgid "Post text should not be the same as post title."
+msgstr "Содержимое поста не должно совпадать с его заголовком."
+
+#: news/models.py:53
+msgid "There is no text yet."
+msgstr "Здесь пока нет текста."
+
+#: news/models.py:83
+msgid "There are no comments yet."
+msgstr "Комментариев пока нет."
+
+#: news/views.py:162
+msgid "Now you are subscribed to this category!"
+msgstr "Теперь вы подписаны на эту категорию!"
+
+#: templates/account/email/email_confirmation_signup_message.html:7
+#, fuzzy
+#| msgid "Registration approval on NewsPortal."
+msgid "Registration approval on NewsPortal"
+msgstr "Подтверждение регистрации на NewsPortal."
+
+#: templates/account/email/email_confirmation_signup_message.html:11
+#, python-format
+msgid "Thanks for your registration, %(user.username)s!"
+msgstr "Спасибо за регистрацию, %(user.username)s!"
+
+#: templates/account/email/email_confirmation_signup_message.html:12
+#, python-format
+msgid ""
+"Please, press <a href=\"%(activate_url)s\">here</a> for your e-mail "
+"confirmation."
+msgstr ""
+"Пожалуйста, кликните <a href=\"%(activate_url)s\">сюда</a> для подтверждения "
+"вашей электронной почты."
+
+#: templates/category_list.html:15
+msgid "Subscribe"
+msgstr "Подписаться"
+
+#: templates/category_list.html:18
+#, python-format
+msgid "All posts in category %(category)s"
+msgstr "Все посты в категории %(category)s"
+
+#: templates/category_list.html:23
+msgid "Author"
+msgstr "Автор"
+
+#: templates/category_list.html:24 templates/news.html:29
+#: templates/news_search.html:23 templates/post.html:25
+msgid "Title"
+msgstr "Заголовок"
+
+#: templates/category_list.html:25
+msgid "Date"
+msgstr "Дата"
+
+#: templates/category_list.html:26 templates/news.html:31
+#: templates/news_search.html:25
+msgid "Preview"
+msgstr "Превью"
+
+#: templates/category_list.html:27
+msgid "Post type"
+msgstr "Тип поста"
+
+#: templates/category_list.html:40 templates/news.html:50
+msgid "There are no posts!"
+msgstr "Постов пока нет!"
+
+#: templates/category_list.html:66 templates/news_search.html:58
+#: templates/post.html:50 templates/post_limit.html:12
+msgid "Back to Home page: "
+msgstr "Назад на главную страницу: "
+
+#: templates/category_list.html:69 templates/news.html:79
+#: templates/news/logout.html:15 templates/news_search.html:16
+#: templates/news_search.html:61 templates/post.html:53
+#: templates/post_limit.html:15 templates/subscribe.html:11
+msgid "Go"
+msgstr "Перейти"
+
+#: templates/flatpages/default.html:19
+msgid "News Portal by Leo"
+msgstr "News Portal by Leo"
+
+#: templates/flatpages/default.html:33
+msgid "Set"
+msgstr "Выбрать"
+
+#: templates/flatpages/default.html:44
+msgid "Home"
+msgstr "Домашняя"
+
+#: templates/flatpages/default.html:47
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/flatpages/default.html:50 templates/news/personal.html:8
+msgid "Personal"
+msgstr "Личная"
+
+#: templates/news.html:8 templates/post.html:7
+msgid "Post"
+msgstr "Пост"
+
+#: templates/news.html:12
+msgid "News"
+msgstr "Новости"
+
+#: templates/news.html:13
+#, python-format
+msgid " Total on page: %(myvar)s "
+msgstr "Всего на странице: %(myvar)s"
+
+#: templates/news.html:17 templates/post.html:14
+msgid "Create news"
+msgstr "Создать новость"
+
+#: templates/news.html:22 templates/post.html:19
+msgid "Create article"
+msgstr "Создать статью"
+
+#: templates/news.html:30 templates/news_search.html:24 templates/post.html:27
+msgid "Publication date"
+msgstr "Дата публикации"
+
+#: templates/news.html:32
+msgid "Category"
+msgstr "Категория"
+
+#: templates/news.html:76
+msgid "Go to Search page: "
+msgstr "Назад на страницу поиска"
+
+#: templates/news/logout.html:6
+msgid "Logout"
+msgstr "Выход"
+
+#: templates/news/logout.html:10
+msgid "Logout success, we already miss you!"
+msgstr "Вы успешно вышли, мы уже скучаем по вам!"
+
+#: templates/news/logout.html:12
+msgid "To enter NewsPortal, please press the button: "
+msgstr "Чтобы войти на NewsPortal, пожалуйста кликните на кнопку: "
+
+#: templates/news/personal.html:15
+#, python-format
+msgid "Authorized personal page of %(username)s"
+msgstr "Личная страница авторизованного пользователя %(username)s"
+
+#: templates/news/personal.html:16
+msgid "Here will be your personal info soon."
+msgstr "Скоро здесь появится ваша персональная информация."
+
+#: templates/news/personal.html:19
+msgid "Please press the button to logout: "
+msgstr "Для выхода пожалуйста кликните на кнопку: "
+
+#: templates/news/personal.html:22
+msgid "Bye!"
+msgstr "Выйти"
+
+#: templates/news_search.html:9
+msgid "Post search"
+msgstr "Поиск поста"
+
+#: templates/news_search.html:13
+msgid "Search: "
+msgstr "Поиск: "
+
+#: templates/news_search.html:37
+msgid "Empty right now."
+msgstr "Здесь пока пусто."
+
+#: templates/post.html:11
+msgid "Current post"
+msgstr "Текущий пост"
+
+#: templates/post.html:29
+msgid "Post text"
+msgstr "Текст поста"
+
+#: templates/post.html:33
+msgid "There is no such post!"
+msgstr "Такого поста нет!"
+
+#: templates/post.html:39 templates/post_edit.html:6
+msgid "Edit post"
+msgstr "Редактировать пост"
+
+#: templates/post.html:46 templates/post_delete.html:6
+#: templates/post_delete.html:12
+msgid "Delete post"
+msgstr "Удалить пост"
+
+#: templates/post_create.html:6
+msgid "Add post"
+msgstr "Добавить пост"
+
+#: templates/post_create.html:11
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/post_created_email.html:8
+msgid "New post added on NewsPortal"
+msgstr "Новый пост добавлен на NewsPortal"
+
+#: templates/post_created_email.html:11
+#, python-format
+msgid ""
+"Hello, %(username)s! New <a>href=\"%(link)s\">post</a> in your favorite "
+"category."
+msgstr ""
+"Здравствуйте, %(username)s! Новый <a>href=\"%(link)s\">пост</a> в вашей "
+"любимой категории."
+
+#: templates/post_del_upd_restrict.html:6
+msgid "Post update & delete notification"
+msgstr "Уведомление при создании или удалении поста"
+
+#: templates/post_del_upd_restrict.html:11
+#, python-format
+msgid "Dear %(username)s, only author can delete or edit this post!"
+msgstr ""
+"Уважаемый %(username)s, только автор может удалять или редактировать пост!"
+
+#: templates/post_del_upd_restrict.html:13
+msgid "Go back to post"
+msgstr "Назад на страницу поста"
+
+#: templates/post_delete.html:10
+#, python-format
+msgid "Delete \"%(cur_post)s\"?"
+msgstr "Удалить \"%(cur_post)s\"?"
+
+#: templates/post_edit.html:11
+msgid "Save post"
+msgstr "Сохранить пост"
+
+#: templates/post_limit.html:6
+msgid "Post limit"
+msgstr "Ограничение количества постов"
+
+#: templates/post_limit.html:10
+#, python-format
+msgid "Dear %(author)s, you may create only 3 posts per day."
+msgstr "Уважаемый %(author)s, вы можете создавать до 3 постов в сутки."
+
+#: templates/subscribe.html:8
+msgid "Back to category posts: "
+msgstr "Назад к постам категории: "

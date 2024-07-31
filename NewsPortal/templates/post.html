@@ -1,56 +1,56 @@
-<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
 {% load news_filters %}
 
 {% block title %}
-Post
+{% translate "Post" %}
 {% endblock title %}
 
 {% block content %}
-    <h1>Текущая новость/статья</h1>
+    <h1>{% translate "Current post" %}</h1>
     <form method="get" action="{% url 'create' %}">
         {% csrf_token %}
-        <button type="submit">Написать новость</button>
+        <button type="submit">{% translate "Create news" %}</button>
     </form>&nbsp;
 
     <form method="get" action="{% url 'articles_create' %}">
         {% csrf_token %}
-        <button type="submit">Написать статью</button>
+        <button type="submit">{% translate "Create article" %}</button>
     </form>
 
     <hr>
     {% if post %}
         <dl>
-            <dt>Заголовок<dt>
+            <dt>{% translate "Title" %}<dt>
             <dd>{{post.title|censor}}</dd>
-            <dt>Дата публикации<dt>
+            <dt>{% translate "Publication date" %}<dt>
             <dd>{{post.post_time_in|date:'M d Y'}}</dd>
-            <dt>Текст статьи<dt>
+            <dt>{% translate "Post text" %}<dt>
             <dd>{{post.post_text|censor}}</dd>
         </dl>
     {% else %}
-       <h3>Такого поста нет!</h3>
+       <h3>{% translate "There is no such post!" %}</h3>
    {% endif %}
 
     {% if is_author %}
     <form method="get" action="{% url 'edit' post.id %}">
         {% csrf_token %}
-        <button type="submit">Редактировать</button>
+        <button type="submit">{% translate "Edit post" %}</button>
     </form>&nbsp;
     {% endif %}
 
     {% if is_author %}
     <form method="get" action="{% url 'delete' post.id %}">
         {% csrf_token %}
-        <button type="submit">Удалить пост</button>
+        <button type="submit">{% translate "Delete post" %}</button>
     </form>&nbsp;
     {% endif %}
 
-<h6> Для возврата на главную страницу нажмите кнопку: </h6>
+<h6> {% translate "Back to Home page: " %} </h6>
     <form method="get" action="{% url 'post_list' %}">
         {% csrf_token %}
-        <button type="submit">Перейти</button>
+        <button type="submit">{% translate "Go" %}</button>
     </form>
 
 {% endblock content %}

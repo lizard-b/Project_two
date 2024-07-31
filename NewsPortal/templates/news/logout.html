@@ -1,16 +1,18 @@
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
+
 {% block title %}
-Logout
+{% translate "Logout" %}
 {% endblock title %}
 
 {% block content %}
-<h4> Вы вышли из системы. Мы по вам уже скучаем!</h4>
+<h4> {% translate "Logout success, we already miss you!" %}</h4>
 
-<h6> Для входа в систему нажмите кнопку: </h6>
+<h6> {% translate "To enter NewsPortal, please press the button: " %} </h6>
     <form method="post" action="{% url 'personal_page' %}">
         {% csrf_token %}
-        <button type="submit">Войти</button>
+        <button type="submit">{% translate "Go" %}</button>
     </form>
 
 {% endblock %}

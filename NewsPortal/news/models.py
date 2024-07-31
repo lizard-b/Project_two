@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from .resources import *
 from django.core.cache import cache
+from django.utils.translation import gettext as _
 
 
 class Author(models.Model):
@@ -49,7 +50,7 @@ class Post(models.Model):
                                  choices=POSTS,
                                  default=article)
     title = models.CharField(max_length=255)
-    post_text = models.TextField(default="Здесь пока никто ничего не написал.")
+    post_text = models.TextField(default=_("There is no text yet."))
     post_rating = models.IntegerField(default=0)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='posts')
     categories = models.ManyToManyField(Category, through='PostCategory',
@@ -79,7 +80,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     comm_time_in = models.DateTimeField(auto_now_add=True)
-    comment_text = models.TextField(default="Комментариев пока нет.")
+    comment_text = models.TextField(default=_("There are no comments yet."))
     comment_rating = models.IntegerField(default=0)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')

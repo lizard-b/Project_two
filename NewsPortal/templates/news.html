@@ -1,34 +1,35 @@
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
 {% load news_filters %}
 {% load news_tags %}
 
 {% block title %}
-Post
+{% translate "Post" %}
 {% endblock title %}
 
 {% block content %}
-   <h1>Новости</h1>
-   <h3>Всего на странице: {{news|length}}</h3>&nbsp;
+   <h1>{% translate "News" %}</h1>
+   <h3>{% blocktranslate with myvar=news|length %} Total on page: {{myvar}} {% endblocktranslate %}</h3>&nbsp;
 
    <form method="get" action="{% url 'create' %}">
         {% csrf_token %}
-        <button type="submit">Написать новость</button>
+        <button type="submit">{% translate "Create news" %}</button>
    </form>&nbsp;
 
    <form method="get" action="{% url 'articles_create' %}">
         {% csrf_token %}
-        <button type="submit">Написать статью</button>
+        <button type="submit">{% translate "Create article" %}</button>
    </form>
 
    <hr>
    {% if news %}
        <table>
            <tr>
-               <td style="font-size: 16px; font-weight: bold;">Заголовок</td>
-               <td style="font-size: 16px; font-weight: bold;">Дата публикации</td>
-               <td style="font-size: 16px; font-weight: bold;">Превью</td>
-               <td style="font-size: 16px; font-weight: bold;">Категория</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Title" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Publication date" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Preview" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Category" %}</td>
            </tr>
            {% for post in news %}
            <tr>
@@ -46,7 +47,7 @@ Post
        </table>
 
    {% else %}
-       <h2>Новостей нет!</h2>
+       <h2>{% translate "There are no posts!" %}</h2>
    {% endif %}
 
    {# Добавляем пагинацию на страницу #}
@@ -72,10 +73,10 @@ Post
        {% endif %}
    {% endif %}
 
-    <h6> На страницу поиска: </h6>
+    <h6> {% translate "Go to Search page: " %} </h6>
     <form method="get" action="{% url 'search' %}">
         {% csrf_token %}
-        <button type="submit">Перейти</button>
+        <button type="submit">{% translate "Go" %}</button>
     </form>
 
 {% endblock content %}

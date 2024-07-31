@@ -1,16 +1,18 @@
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
+
 {% block title %}
-Post limit
+{% translate "Post limit" %}
 {% endblock title %}
 
 {% block content %}
-<h2>Уважаемый {{author}}, на портале нельзя публиковать более трех постов в сутки.</h2>
+<h2>{% blocktranslate %}Dear {{author}}, you may create only 3 posts per day.{% endblocktranslate %}</h2>
 
-<h6> Для возврата на главную страницу нажмите кнопку: </h6>
+<h6> {% translate "Back to Home page: " %} </h6>
     <form method="get" action="{% url 'post_list' %}">
         {% csrf_token %}
-        <button type="submit">Перейти</button>
+        <button type="submit">{% translate "Go" %}</button>
     </form>
 
 {% endblock %}

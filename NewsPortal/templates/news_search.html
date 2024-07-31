@@ -1,26 +1,28 @@
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
+
 {% load news_filters %}
 {% load news_tags %}
 
 {% block title %}
-Поиск новостей
+{% translate "Post search" %}
 {% endblock title %}
 
 {% block content %}
-   <h1>Поиск:</h1>
+   <h1>{% translate "Search: " %}</h1>
    <form action="" method="get">
        {{ filterset.form.as_p }}
-       <input type="submit" value="Найти" />
+       <input type="submit" value="{% translate 'Go' %}" />
    </form>
 
    <hr>
    {% if search %}
        <table>
            <tr>
-               <td style="font-size: 16px; font-weight: bold;">Заголовок</td>
-               <td style="font-size: 16px; font-weight: bold;">Дата публикации</td>
-               <td style="font-size: 16px; font-weight: bold;">Превью</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Title" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Publication date" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Preview" %}</td>
            </tr>
            {% for post in search %}
            <tr>
@@ -32,7 +34,7 @@
 
        </table>
    {% else %}
-       <h2>Здесь пока пусто.</h2>
+       <h2>{% translate "Empty right now." %}</h2>
    {% endif %}
 
    {% if page_obj.has_previous %}
@@ -53,10 +55,10 @@
        {% endif %}
    {% endif %}
 
-<h6> Для возврата на главную страницу нажмите кнопку: </h6>
+<h6> {% translate "Back to Home page: " %} </h6>
     <form method="get" action="{% url 'post_list' %}">
         {% csrf_token %}
-        <button type="submit">Перейти</button>
+        <button type="submit">{% translate "Go" %}</button>
     </form>
 
 {% endblock content %}

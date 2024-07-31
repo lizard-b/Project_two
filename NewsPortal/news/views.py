@@ -14,6 +14,7 @@ from .filters import NewsFilter
 from .forms import PostForm
 from django.core.cache import cache
 from .tasks import notify_about_new_post
+from django.utils.translation import gettext as _
 
 
 class NewsList(ListView):
@@ -158,7 +159,7 @@ def subscribe(request, pk):
     category = Category.objects.get(id=pk)
     category.subscribers.add(user)
 
-    message = 'Вы успешно подписались на категорию'
+    message = _('Now you are subscribed to this category!')
 
     return render(request, 'subscribe.html', {'category': category, 'message': message})
 
