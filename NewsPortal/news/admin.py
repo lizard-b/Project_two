@@ -1,9 +1,11 @@
 from django.contrib import admin
 from .models import (Category, Post, PostCategory,
                      Author, Comment)
+from modeltranslation.admin import TranslationAdmin
 
 
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(TranslationAdmin, admin.ModelAdmin):
+    model = Post
     list_display = ('title', 'preview', 'post_time_in', 'post_type', 'author', 'category')
     list_filter = ('post_time_in', 'post_type', 'author')
     search_fields = ('title', 'post_time_in', 'post_type', 'author__user__username', 'categories__name')
@@ -12,7 +14,8 @@ class PostAdmin(admin.ModelAdmin):
         return "\n".join([p.name for p in obj.categories.all()])
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin, admin.ModelAdmin):
+    model = Category
     list_display = ('name', 'subscriber')
     list_filter = ('name', 'subscribers')
     search_fields = ('name', 'subscribers__username')

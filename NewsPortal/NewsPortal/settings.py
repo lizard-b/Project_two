@@ -13,6 +13,9 @@ import os
 from django.urls import reverse_lazy
 from pathlib import Path
 from dotenv import load_dotenv
+import logging
+
+logger = logging.getLogger('django')
 
 load_dotenv()
 
@@ -36,6 +39,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'news.apps.NewsConfig',
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = [
     ('en-US', 'English'),
