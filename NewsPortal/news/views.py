@@ -20,21 +20,6 @@ from .tasks import notify_about_new_post
 from django.utils.translation import gettext as _
 
 
-# class DefaultTemplate(View):
-#     def get(self, request):
-#         context = {
-#             'current_time': timezone.now(),
-#             'timezones': pytz.common_timezones  # добавляем в контекст все доступные часовые пояса
-#         }
-#         return HttpResponse(render(request, 'default.html', context))
-#
-#     #  по пост-запросу будем добавлять в сессию часовой пояс,
-#     #  который и будет обрабатываться написанным нами ранее middleware
-#     def post(self, request):
-#         request.session['django_timezone'] = request.POST['timezone']
-#         return redirect('/')
-
-
 class NewsList(ListView):
 
     model = Post
