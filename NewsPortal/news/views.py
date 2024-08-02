@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import (ListView, DetailView,
-                                  CreateView, UpdateView, DeleteView, TemplateView)
+                                  CreateView, UpdateView, DeleteView, TemplateView, View)
 
 
 from .models import Post, Category, Author
@@ -15,6 +15,7 @@ from .forms import PostForm
 from django.core.cache import cache
 from .tasks import notify_about_new_post
 from django.utils.translation import gettext as _
+from .resources import common_timezones
 
 
 class NewsList(ListView):
