@@ -1,6 +1,7 @@
 import datetime
 
 import pytz
+from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
@@ -17,7 +18,21 @@ from .forms import PostForm
 from django.core.cache import cache
 from .tasks import notify_about_new_post
 from django.utils.translation import gettext as _
-from .resources import common_timezones
+
+
+# class DefaultTemplate(View):
+#     def get(self, request):
+#         context = {
+#             'current_time': timezone.now(),
+#             'timezones': pytz.common_timezones  # добавляем в контекст все доступные часовые пояса
+#         }
+#         return HttpResponse(render(request, 'default.html', context))
+#
+#     #  по пост-запросу будем добавлять в сессию часовой пояс,
+#     #  который и будет обрабатываться написанным нами ранее middleware
+#     def post(self, request):
+#         request.session['django_timezone'] = request.POST['timezone']
+#         return redirect('/')
 
 
 class NewsList(ListView):
@@ -27,6 +42,16 @@ class NewsList(ListView):
     template_name = 'news.html'
     context_object_name = 'news'
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.now()
+        context['timezones'] = pytz.common_timezones
+        return context
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
 
 
 class PostDetail(DetailView):

@@ -12,6 +12,8 @@
         {% load static %}
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <style> body {background-color: {% if current_time.hour < 19 %} darkgrey {% else %} powderblue {% endif %};}
+    </style>
     </head>
     <body>
         <!-- Responsive navbar-->
