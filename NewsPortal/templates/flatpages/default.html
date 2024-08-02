@@ -20,7 +20,6 @@
                <a class="navbar-brand" href="/news/">{% translate "News Portal by Leo" %}</a>
                <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST запросов -->
                    <input type="hidden" name="next" value="{{ redirect_to }}">
-
                    <select name="language" id="">
                        {% get_available_languages as LANGUAGES %} <!-- получаем языки -->
                        {% get_language_info_list for LANGUAGES as languages %} <!-- Помещаем их в список languages -->
