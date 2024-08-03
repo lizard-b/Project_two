@@ -8,9 +8,9 @@ from django.views.decorators.cache import cache_page
 urlpatterns = [
 
    path('', NewsList.as_view(), name='post_list'),
-   path('news/', cache_page(15*1)(NewsList.as_view()), name='post_list'),
-   path('news/<int:pk>', PostDetail.as_view(), name='post'),
-   path('news/search/', cache_page(15*1)(NewsSearch.as_view()), name='search'),
+   path('news/', NewsList.as_view(), name='post_list'),
+   path('news/<int:pk>', cache_page(15*1)(PostDetail.as_view()), name='post'),
+   path('news/search/', NewsSearch.as_view(), name='search'),
    path('news/create/', PostCreate.as_view(), name='create'),
    path('news/<int:pk>/edit', PostUpdate.as_view(), name='edit'),
    path('news/<int:pk>/delete', PostDelete.as_view(), name='delete'),

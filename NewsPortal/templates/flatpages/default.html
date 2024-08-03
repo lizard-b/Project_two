@@ -12,8 +12,6 @@
     {% load static %}
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
-    <style> body {background-color: {% if current_time.hour >= 19 or current_time.hour <= 7 %} powderblue {% else %} darkgrey {% endif %};}
-    </style>
 </head>
 <body>
     <!-- Responsive navbar-->
@@ -65,5 +63,8 @@
            </div>
        </div>
     </div>
+    <style>
+        body {background-color: {% if current_time.hour >= 19 or current_time.hour <= 7 %} darkgrey {% else %} lightgrey {% endif %};}
+    </style>
 </body>
 </html>
