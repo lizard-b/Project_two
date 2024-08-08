@@ -1,0 +1,862 @@
+08.08.2024 16-04-53 ERROR Internal Server Error: /swagger-ui/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.template.exceptions.TemplateDoesNotExist'>, TemplateDoesNotExist('swagger-ui.html'), <traceback object at 0x000002BE9419F740>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: swagger-ui.html
+08.08.2024 16-04-53 ERROR "GET /swagger-ui/ HTTP/1.1" 500 87143 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-11-27 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `author__user__username` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x000002BE942971C0>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `author__user__username` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-11-27 ERROR "GET /api/news/ HTTP/1.1" 500 172844 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-13-09 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `author__username` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x0000021A6DFF56C0>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `author__username` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-13-09 ERROR "GET /api/news/ HTTP/1.1" 500 172706 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-13-33 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `author__user` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x00000183D4B3DA40>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `author__user` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-13-33 ERROR "GET /api/news/ HTTP/1.1" 500 172614 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-13-44 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `author.user` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x0000022EEFAFE680>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `author.user` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-13-44 ERROR "GET /api/news/ HTTP/1.1" 500 172591 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-14-02 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Could not resolve URL for hyperlinked relationship using view name "author-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.'), <traceback object at 0x00000244EDF178C0>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 396, in to_representation
+    url = self.get_url(value, self.view_name, request, format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 334, in get_url
+    return self.reverse(view_name, kwargs=kwargs, request=request, format=format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 47, in reverse
+    url = _reverse(viewname, args, kwargs, request, format, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 60, in _reverse
+    url = django_reverse(viewname, args=args, kwargs=kwargs, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'author-detail' not found. 'author-detail' is not a valid view function or pattern name.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 538, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 411, in to_representation
+    raise ImproperlyConfigured(msg % self.view_name)
+django.core.exceptions.ImproperlyConfigured: Could not resolve URL for hyperlinked relationship using view name "author-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.
+08.08.2024 16-14-02 ERROR "GET /api/news/ HTTP/1.1" 500 197747 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-14-55 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `posts` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x0000021269259B80>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `posts` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-14-55 ERROR "GET /api/news/ HTTP/1.1" 500 172425 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-15-13 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Could not resolve URL for hyperlinked relationship using view name "author-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.'), <traceback object at 0x0000016A1C2A78C0>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 396, in to_representation
+    url = self.get_url(value, self.view_name, request, format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 334, in get_url
+    return self.reverse(view_name, kwargs=kwargs, request=request, format=format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 47, in reverse
+    url = _reverse(viewname, args, kwargs, request, format, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 60, in _reverse
+    url = django_reverse(viewname, args=args, kwargs=kwargs, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'author-detail' not found. 'author-detail' is not a valid view function or pattern name.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 538, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 411, in to_representation
+    raise ImproperlyConfigured(msg % self.view_name)
+django.core.exceptions.ImproperlyConfigured: Could not resolve URL for hyperlinked relationship using view name "author-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.
+08.08.2024 16-15-13 ERROR "GET /api/news/ HTTP/1.1" 500 197884 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-25-09 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `author__user__username` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x00000122EE99A0C0>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `author__user__username` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-25-09 ERROR "GET /api/news/ HTTP/1.1" 500 172965 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-28-20 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `author_id__user_id__username` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x0000017EFF829F80>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `author_id__user_id__username` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-28-20 ERROR "GET /api/news/ HTTP/1.1" 500 173265 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-28-37 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Could not resolve URL for hyperlinked relationship using view name "category-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.'), <traceback object at 0x0000029E499E5780>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 396, in to_representation
+    url = self.get_url(value, self.view_name, request, format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 334, in get_url
+    return self.reverse(view_name, kwargs=kwargs, request=request, format=format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 47, in reverse
+    url = _reverse(viewname, args, kwargs, request, format, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 60, in _reverse
+    url = django_reverse(viewname, args=args, kwargs=kwargs, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'category-detail' not found. 'category-detail' is not a valid view function or pattern name.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 538, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 564, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 565, in <listcomp>
+    self.child_relation.to_representation(value)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 411, in to_representation
+    raise ImproperlyConfigured(msg % self.view_name)
+django.core.exceptions.ImproperlyConfigured: Could not resolve URL for hyperlinked relationship using view name "category-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.
+08.08.2024 16-28-37 ERROR "GET /api/news/ HTTP/1.1" 500 206284 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-32-59 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `post_category` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x0000020E0570E000>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `post_category` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-32-59 ERROR "GET /api/news/ HTTP/1.1" 500 172820 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-33-14 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `post_categories` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x00000160E80E4A00>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `post_categories` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-33-14 ERROR "GET /api/news/ HTTP/1.1" 500 172866 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-33-41 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Could not resolve URL for hyperlinked relationship using view name "category-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.'), <traceback object at 0x0000022EEDAC5980>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 396, in to_representation
+    url = self.get_url(value, self.view_name, request, format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 334, in get_url
+    return self.reverse(view_name, kwargs=kwargs, request=request, format=format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 47, in reverse
+    url = _reverse(viewname, args, kwargs, request, format, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 60, in _reverse
+    url = django_reverse(viewname, args=args, kwargs=kwargs, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'category-detail' not found. 'category-detail' is not a valid view function or pattern name.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 538, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 564, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 565, in <listcomp>
+    self.child_relation.to_representation(value)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 411, in to_representation
+    raise ImproperlyConfigured(msg % self.view_name)
+django.core.exceptions.ImproperlyConfigured: Could not resolve URL for hyperlinked relationship using view name "category-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.
+08.08.2024 16-33-41 ERROR "GET /api/news/ HTTP/1.1" 500 206284 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-36-00 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `category_id` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x0000025C0AF79A80>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `category_id` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-36-00 ERROR "GET /api/news/ HTTP/1.1" 500 172774 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-38-45 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `author_id__user_id` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x000001C0EB0F7080>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `author_id__user_id` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-38-45 ERROR "GET /api/news/ HTTP/1.1" 500 172873 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-39-44 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Field name `author_id__user` is not valid for model `Post` in `serializers.PostSerializer`.'), <traceback object at 0x0000018ABC566140>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `author_id__user` is not valid for model `Post` in `serializers.PostSerializer`.
+08.08.2024 16-39-44 ERROR "GET /api/news/ HTTP/1.1" 500 172941 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-52-16 ERROR Internal Server Error: /api/author/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Could not resolve URL for hyperlinked relationship using view name "user-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.'), <traceback object at 0x000001D9F9F88F00>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 396, in to_representation
+    url = self.get_url(value, self.view_name, request, format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 334, in get_url
+    return self.reverse(view_name, kwargs=kwargs, request=request, format=format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 47, in reverse
+    url = _reverse(viewname, args, kwargs, request, format, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 60, in _reverse
+    url = django_reverse(viewname, args=args, kwargs=kwargs, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user-detail' not found. 'user-detail' is not a valid view function or pattern name.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 538, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 411, in to_representation
+    raise ImproperlyConfigured(msg % self.view_name)
+django.core.exceptions.ImproperlyConfigured: Could not resolve URL for hyperlinked relationship using view name "user-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.
+08.08.2024 16-52-16 ERROR "GET /api/author/ HTTP/1.1" 500 160734 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None
+08.08.2024 16-58-28 ERROR Internal Server Error: /api/news/ D:\Cody_Brain\Project_two\venv\lib\site-packages\django\utils\log.py (<class 'django.core.exceptions.ImproperlyConfigured'>, ImproperlyConfigured('Could not resolve URL for hyperlinked relationship using view name "category-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.'), <traceback object at 0x0000020D8A577440>)
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 396, in to_representation
+    url = self.get_url(value, self.view_name, request, format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 334, in get_url
+    return self.reverse(view_name, kwargs=kwargs, request=request, format=format)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 47, in reverse
+    url = _reverse(viewname, args, kwargs, request, format, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\reverse.py", line 60, in _reverse
+    url = django_reverse(viewname, args=args, kwargs=kwargs, **extra)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'category-detail' not found. 'category-detail' is not a valid view function or pattern name.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 713, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 714, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\serializers.py", line 538, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 564, in to_representation
+    return [
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 565, in <listcomp>
+    self.child_relation.to_representation(value)
+  File "D:\Cody_Brain\Project_two\venv\lib\site-packages\rest_framework\relations.py", line 411, in to_representation
+    raise ImproperlyConfigured(msg % self.view_name)
+django.core.exceptions.ImproperlyConfigured: Could not resolve URL for hyperlinked relationship using view name "category-detail". You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.
+08.08.2024 16-58-28 ERROR "GET /api/news/ HTTP/1.1" 500 206628 D:\Cody_Brain\Project_two\venv\lib\site-packages\django\core\servers\basehttp.py None

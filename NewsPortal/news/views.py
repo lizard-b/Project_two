@@ -1,5 +1,5 @@
 import datetime
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 
 import pytz
 from django.shortcuts import redirect, get_object_or_404, render
@@ -12,7 +12,7 @@ from django.views.generic import (ListView, DetailView,
                                   CreateView, UpdateView, DeleteView, TemplateView, )
 
 from .models import *
-from .serializers import PostSerializer
+from serializers import *
 from .filters import NewsFilter
 from .forms import PostForm
 from django.core.cache import cache
@@ -180,10 +180,30 @@ def subscribe(request, pk):
 class NewsViewset(viewsets.ModelViewSet):
     queryset = Post.objects.filter(post_type='NEW')
     serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class ArticlesViewset(viewsets.ModelViewSet):
     queryset = Post.objects.filter(post_type='ART')
     serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class AuthorViewset(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class UserViewset(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CategoryViewset(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 # Create your views here.
