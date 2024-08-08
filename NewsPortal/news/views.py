@@ -1,6 +1,5 @@
 import datetime
 from rest_framework import viewsets
-from rest_framework import permissions
 
 import pytz
 from django.shortcuts import redirect, get_object_or_404, render
@@ -12,8 +11,8 @@ from django.utils import timezone
 from django.views.generic import (ListView, DetailView,
                                   CreateView, UpdateView, DeleteView, TemplateView, )
 
-
-from .serializers import *
+from .models import *
+from .serializers import PostSerializer
 from .filters import NewsFilter
 from .forms import PostForm
 from django.core.cache import cache
