@@ -1,7 +1,8 @@
 import datetime
+from rest_framework import viewsets
+from rest_framework import permissions
 
 import pytz
-from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
@@ -9,10 +10,10 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import (ListView, DetailView,
-                                  CreateView, UpdateView, DeleteView, TemplateView, View)
+                                  CreateView, UpdateView, DeleteView, TemplateView, )
 
 
-from .models import Post, Category, Author
+from .serializers import *
 from .filters import NewsFilter
 from .forms import PostForm
 from django.core.cache import cache
@@ -36,7 +37,7 @@ class NewsList(ListView):
 
     def post(self, request):
         request.session['django_timezone'] = request.POST['timezone']
-        return redirect('/')
+        return redirect('/news')
 
 
 class PostDetail(DetailView):
@@ -175,5 +176,15 @@ def subscribe(request, pk):
     message = _('Now you are subscribed to this category!')
 
     return render(request, 'subscribe.html', {'category': category, 'message': message})
+
+
+class NewsViewset(viewsets.ModelViewSet):
+    queryset = Post.objects.filter(post_type='NEW')
+    serializer_class = PostSerializer
+
+
+class ArticlesViewset(viewsets.ModelViewSet):
+    queryset = Post.objects.filter(post_type='ART')
+    serializer_class = PostSerializer
 
 # Create your views here.
