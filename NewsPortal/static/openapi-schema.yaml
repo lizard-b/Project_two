@@ -64,7 +64,7 @@ paths:
       tags:
         - news
     
-  /news/{id}/:
+  /api/news/{id}/:
     get:
       summary: 'Get news post by its ID'
       description: 'Get post with type NEW by its ID'
@@ -72,8 +72,9 @@ paths:
         - name: id
           in: path
           required: true
+          description: 'A unique integer value identifying this post.'
           schema:
-            $ref: '#/components/schemas/News'
+              type: string
       responses:
         '200':
           content:
@@ -90,8 +91,9 @@ paths:
         - name: id
           in: path
           required: true
+          description: 'A unique integer value identifying this post.'
           schema:
-            $ref: '#/components/schemas/News'
+            type: string
       requestBody:
         content:
           application/json:
@@ -113,8 +115,9 @@ paths:
         - name: id
           in: path
           required: true
+          description: 'A unique integer value identifying this post.'
           schema:
-            $ref: '#/components/schemas/News'
+            type: string
       requestBody:
         content:
           application/json:
@@ -126,7 +129,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/News'
-          description: 'News post has been updated successfully'
+          description: 'News post has been partial updated successfully'
       tags:
         - news
     delete:
@@ -136,8 +139,9 @@ paths:
         - name: id
           in: path
           required: true
+          description: 'A unique integer value identifying this post.'
           schema:
-            $ref: '#/components/schemas/News'
+            type: string
       responses:
         '204':
           description: 'News post has been deleted successfully'
