@@ -17,15 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from news import views
+from news import viewsets
 from django.views.generic import TemplateView
 
 router = routers.DefaultRouter()
-router.register(r'news', views.NewsViewset, basename='api_news')
-router.register(r'articles', views.ArticlesViewset, basename='api_articles')
-router.register(r'author', views.AuthorViewset)
-router.register(r'user', views.UserViewset)
-router.register(r'category', views.CategoryViewset)
+router.register(r'news', viewsets.NewsViewset, basename='api_news')
+router.register(r'articles', viewsets.ArticlesViewset, basename='api_articles')
+router.register(r'author', viewsets.AuthorViewset)
+router.register(r'user', viewsets.UserViewset)
+router.register(r'category', viewsets.CategoryViewset)
 
 urlpatterns = [
     path('', include('news.urls')),
