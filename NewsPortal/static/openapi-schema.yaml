@@ -16,23 +16,11 @@ externalDocs:
   url: http://swagger.io
 
 paths:
-  /news/:
+  /api/news/:
     get:
       summary: 'Get a news list'
       description: 'Get a full list of posts with NEW post type'
-      parameters:
-      - name: limit
-        required: false
-        in: query
-        description: 'Number of results to return per page.'
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: 'The initial index from which to return the results.'
-        schema:
-          type: integer
+      parameters: []
       responses:
         '200':
           content:
