@@ -1,0 +1,96 @@
+{% extends 'flatpages/default.html' %}
+
+{% load i18n %}
+{% load tz %}
+{% load news_filters %}
+{% load news_tags %}
+
+{% block title %}
+{% translate "Post" %}
+{% endblock title %}
+
+{% block content %}
+   <h1>{% translate "News" %}</h1>
+   <h3>{% blocktranslate with myvar=news|length %} Total on page: {{myvar}} {% endblocktranslate %}</h3>&nbsp;
+
+   <form method="get" action="{% url 'create' %}">
+        {% csrf_token %}
+        <button type="submit">{% translate "Create news" %}</button>
+   </form>&nbsp;
+
+   <form method="get" action="{% url 'articles_create' %}">
+        {% csrf_token %}
+        <button type="submit">{% translate "Create article" %}</button>
+   </form>
+
+   <hr>
+   {% if news %}
+       <table>
+           <tr>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Title" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Publication date" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Preview" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Category" %}</td>
+           </tr>
+           {% for post in news %}
+           <tr>
+               <td><a href="{% url 'post' post.id %}">{{ post.title|censor }}</a></td>
+               <td>{{post.post_time_in|date:'M d Y'}}</td>
+               <td>{{post.post_text|truncatechars:20|censor}}</td>
+               <td>
+                {% for category in post.categories.all %}
+                <a href="{% url 'category_list' category.id %}">{{ category }}</a>
+                {% endfor %}
+               </td>
+           </tr>
+           {% endfor %}
+
+       </table>
+
+   {% else %}
+       <h2>{% translate "There are no posts!" %}</h2>
+   {% endif %}
+
+   {# Добавляем пагинацию на страницу #}
+
+   {# Информация о предыдущих страницах #}
+   {% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+    <h6> {% translate "Go to Search page: " %} </h6>
+    <form method="get" action="{% url 'search' %}">
+        {% csrf_token %}
+        <button type="submit">{% translate "Go" %}</button>
+    </form>
+    {% get_current_timezone as TIME_ZONE %}
+    <form align="left" action="" method="POST">
+        {% csrf_token %}
+        <label> Time zone: </label>
+        <select name="timezone">
+            {% for tz in timezones %}
+            <option value="{{ tz }}"{% if tz == TIME_ZONE %} selected{% endif %}>{{ tz }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="✓">
+    </form>
+    <p align="right">{{ TIME_ZONE }}</p>
+    <p align="right">{{ current_time|timezone:TIME_ZONE }}</p>
+
+{% endblock content %}

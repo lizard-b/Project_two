@@ -1,0 +1,72 @@
+{% extends 'flatpages/default.html' %}
+
+{% load i18n %}
+{% load news_filters %}
+{% load news_tags %}
+
+{% block title %}
+Posts
+{% endblock title %}
+
+
+{% block content %}
+
+    {% if is_not_subscriber %}
+        <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm ">{% translate "Subscribe" %}</a></p>
+
+    {% endif %}
+   <h2>{% blocktranslate %}All posts in category {{category}}{% endblocktranslate %}</h2>
+
+{% if category_news_list %}
+ <table>
+           <tr>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Author" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Title" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Date" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Preview" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Post type" %}</td>
+           </tr>
+      {% for post in category_news_list %}
+           <tr>
+               <td>{{ post.author}}</td>
+               <td><a href="{% url 'post' post.id %}">{{ post.title|censor }}</a></td>
+               <td>{{ post.post_time_in|date:'d.m.Y' }}</td>
+               <td>{{ post.post_text|truncatechars:35|censor }}</td>
+               <td>{{ post.get_post_type_display }}</td>
+           </tr>
+     {% endfor %}
+ </table>
+{% else %}
+    <h2>{% translate "There are no posts!" %}</h2>
+{% endif %}
+
+ {# Добавляем пагинацию на страницу #}
+
+   {# Информация о предыдущих страницах #}
+   {% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+      <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+            <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+<h6> {% translate "Back to Home page: " %} </h6>
+    <form method="get" action="{% url 'post_list' %}">
+        {% csrf_token %}
+        <button type="submit">{% translate "Go" %}</button>
+    </form>
+
+{% endblock content %}

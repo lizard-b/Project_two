@@ -1,0 +1,64 @@
+{% extends 'flatpages/default.html' %}
+
+{% load i18n %}
+
+{% load news_filters %}
+{% load news_tags %}
+
+{% block title %}
+{% translate "Post search" %}
+{% endblock title %}
+
+{% block content %}
+   <h1>{% translate "Search: " %}</h1>
+   <form action="" method="get">
+       {{ filterset.form.as_p }}
+       <input type="submit" value="{% translate 'Go' %}" />
+   </form>
+
+   <hr>
+   {% if search %}
+       <table>
+           <tr>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Title" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Publication date" %}</td>
+               <td style="font-size: 16px; font-weight: bold;">{% translate "Preview" %}</td>
+           </tr>
+           {% for post in search %}
+           <tr>
+               <td><a href="{% url 'post' post.id %}">{{ post.title|censor }}</a></td>
+               <td>{{post.post_time_in|date:'M d Y'}}</td>
+               <td>{{post.post_text|truncatechars:20|censor}}</td>
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>{% translate "Empty right now." %}</h2>
+   {% endif %}
+
+   {% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+<h6> {% translate "Back to Home page: " %} </h6>
+    <form method="get" action="{% url 'post_list' %}">
+        {% csrf_token %}
+        <button type="submit">{% translate "Go" %}</button>
+    </form>
+
+{% endblock content %}

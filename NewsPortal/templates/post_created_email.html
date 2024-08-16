@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% translate "New post added on NewsPortal" %}</title>
+</head>
+<body>
+<h2> {% blocktranslate %}Hello, {{username}}! New <a>href="{{link}}">post</a> in your favorite category.{% endblocktranslate %}
+    </h2>
+<p>{{ text }} </p>
+</body>
+</html>

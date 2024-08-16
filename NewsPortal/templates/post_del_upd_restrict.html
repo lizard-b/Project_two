@@ -1,0 +1,15 @@
+{% extends 'flatpages/default.html' %}
+
+{% load i18n %}
+
+{% block title %}
+{% translate "Post update & delete notification" %}
+{% endblock title %}
+
+{% block content %}
+
+<h4>{% blocktranslate with username=request.user.username %}Dear {{username}}, only author can delete or edit this post!{% endblocktranslate %}</h4>
+
+<button onclick="history.go(-2)">{% translate "Go back to post" %}</button>
+
+{% endblock %}

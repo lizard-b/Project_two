@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: 'Swagger NewsPortal - OpenAPI 3.0'
+  description: |-
+    This is a NewsPortal Server based on the OpenAPI 3.0 specification. На данный момент реализованы
+    методы создания, получения, удаления и правки постов.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+      name: Apache 2.0
+      url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '0.0.1'
+externalDocs:
+  description: 'Find out more about Swagger'
+  url: http://swagger.io
+
+paths:
+  /api/news/:
+    get:
+      summary: 'Get a news list'
+      description: 'Get a full list of posts with NEW post type'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/News'
+          description: 'News list have been received successfully'
+      tags:
+        - news
+    post:
+      summary: 'Create a post with type NEW'
+      description: 'Create a post with NEW type (Создание поста с типом Новость)'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/News'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/News'
+          description: 'News post has been created successfully'
+      tags:
+        - news
+    
+  /api/news/{id}/:
+    get:
+      summary: 'Get news post by its ID'
+      description: 'Get post with type NEW by its ID'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'A unique integer value identifying this post.'
+          schema:
+              type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/News'
+          description: 'News post has been received successfully'
+      tags:
+        - news
+    put:
+      summary: 'Edit news post with current ID'
+      description: 'Edit type NEW post with current ID'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'A unique integer value identifying this post.'
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/News'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/News'
+          description: 'News post has been updated successfully'
+      tags:
+        - news
+    patch:
+      summary: 'Partial update news post with current ID'
+      description: 'Partial update type NEW post with current ID'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'A unique integer value identifying this post.'
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/News'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/News'
+          description: 'News post has been partial updated successfully'
+      tags:
+        - news
+    delete:
+      summary: 'Delete news post with current ID'
+      description: 'Delete type NEW post with current ID'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'A unique integer value identifying this post.'
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'News post has been deleted successfully'
+      tags:
+          - news
+components:
+  schemas:
+    News:
+      required:
+        - author
+        - post_title
+        - post_text
+      type: object
+      properties:
+        id:
+          title: ID
+          type: integer
+          readOnly: true
+        post_type:
+          title: Post type
+          type: string
+          enum:
+            - NEW
+            - ART
+        categories:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+          uniqueItems: true
+        author:
+          title: Post author
+          type: integer
+        post_time_in:
+          title: Post creation date and time
+          type: string
+          format: date-time
+          readOnly: true
+        post_title:
+          title: Post title
+          type: string
+          maxLength: 128
+          minLength: 10
+        post_text:
+          title: Post text
+          type: string
+          minLength: 10
+
+
+
+
+
+
+
+

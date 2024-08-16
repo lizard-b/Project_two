@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+
+{% load i18n %}
+
+{% load cache %}
+    {% cache 60 title %}
+        {% block title %}
+        {% translate "Personal" %}
+        {% endblock title %}
+    {% endcache %}
+
+{% load cache %}
+    {% cache 60 block content %}
+        {% block content %}
+        <h2>{% blocktranslate with username=request.user.username %}Authorized personal page of {{username}}{% endblocktranslate %}</h2>
+        <div> {% translate "Here will be your personal info soon." %} </div>&nbsp;
+
+
+        <h6> {% translate "Please press the button to logout: " %} </h6>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">{% translate "Bye!" %}</button>
+            </form>
+
+        {% if is_not_author %}
+        <button> <a href="/upgrade/"> Хочу стать автором!</a> </button>
+        {% endif %}
+
+        {% endblock %}
+    {% endcache %}

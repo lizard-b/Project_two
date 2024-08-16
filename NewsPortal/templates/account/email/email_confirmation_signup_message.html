@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% translate "Registration approval on NewsPortal" %}</title>
+</head>
+<body>
+    {% load account %}
+    <h3>{% blocktranslate %}Thanks for your registration, {{user.username}}!{% endblocktranslate %}</h3>
+    <h6>{% blocktranslate %}Please, press <a href="{{ activate_url }}">here</a> for your e-mail confirmation.{% endblocktranslate %}</h6>
+</body>
+</html>

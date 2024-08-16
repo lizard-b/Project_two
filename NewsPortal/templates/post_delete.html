@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+
+{% load i18n %}
+
+{% block content %}
+<h1>{% translate "Delete post" %}</h1>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    <p>{% blocktranslate with cur_post=object.title %}Delete "{{cur_post}}"?{% endblocktranslate %}
+        </p>
+    <input type="submit" value="{% translate 'Delete post' %}" />
+</form>
+{% endblock content %}
