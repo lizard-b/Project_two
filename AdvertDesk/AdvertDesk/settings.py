@@ -22,7 +22,6 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -33,7 +32,6 @@ SECRET_KEY = 'django-insecure-60=(ii&l^%@4nmxdx65!8&!ux0@z9vjlmwkncf_7&qe!#ycc=t
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -83,7 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'AdvertDesk.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -93,7 +90,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -113,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -124,7 +119,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -155,60 +149,62 @@ CKEDITOR_5_FILE_STORAGE = "adverts.storage.CustomStorage"
 CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpeg', 'jpg', 'png']
 
 CKEDITOR_5_CONFIGS = {
-    "default": {
-        "language": "ru",
-        'toolbar': {
-            'items': [
-                '|', 'heading',
-                '|', 'outdent', 'indent',
-                '|', 'bold', 'italic', 'link', 'underline', 'strikethrough', 'code', 'subscript', 'superscript',
-                'highlight',
-                '|', 'codeBlock', 'insertImage', 'bulletedList', 'numberedList', 'todoList',
-                '|', 'blockQuote',
-                '|', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                'insertTable',
-                '|',
-            ],
-            'shouldNotGroupWhenFull': True
+    'default': {
+        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
+                    'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
+
+    },
+    'extends': {
+        'blockToolbar': [
+            'paragraph', 'heading1', 'heading2', 'heading3',
+            '|',
+            'bulletedList', 'numberedList',
+            '|',
+            'blockQuote',
+        ],
+        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
+                    'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
+                    'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
+                    'insertTable', ],
+        'image': {
+            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
+                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side', '|'],
+            'styles': [
+                'full',
+                'side',
+                'alignLeft',
+                'alignRight',
+                'alignCenter',
+            ]
+
         },
-        "image": {
-            "toolbar": [
-                '|', "imageTextAlternative",
-                "|", "imageStyle:alignLeft", "imageStyle:alignRight", "imageStyle:alignCenter", "imageStyle:side",
-                "|", "toggleImageCaption",
-                "|"
-            ],
-            "styles": [
-                "full",
-                "side",
-                "alignLeft",
-                "alignRight",
-                "alignCenter",
-            ],
-        },
-        "table": {
-            "contentToolbar": [
-                "tableColumn",
-                "tableRow",
-                "mergeTableCells",
-                "tableProperties",
-                "tableCellProperties",
-            ],
-            "tableProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
+        'table': {
+            'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells',
+                               'tableProperties', 'tableCellProperties'],
+            'tableProperties': {
+                'borderColors': customColorPalette,
+                'backgroundColors': customColorPalette
             },
-            "tableCellProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
-            },
-        },
-        "list": {
-            "properties": {
-                "styles": True,
-                "startIndex": True,
-                "reversed": True,
+            'tableCellProperties': {
+                'borderColors': customColorPalette,
+                'backgroundColors': customColorPalette
             }
         },
+        'heading': {
+            'options': [
+                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+                {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'}
+            ]
+        }
     },
+    'list': {
+        'properties': {
+            'styles': 'true',
+            'startIndex': 'true',
+            'reversed': 'true',
+        }
+    }
 }
