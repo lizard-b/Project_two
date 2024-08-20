@@ -50,4 +50,22 @@ class Advert(models.Model):
         return f'{self.title}'
 
 
+class Response(models.Model):
+    time_create = models.DateTimeField(auto_now_add=True)
+    response_text = models.TextField(default="There is no response yet.")
+    advert = models.ForeignKey(Advert, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advert_response')
+
+    def __str__(self):
+        return f'{self.user.username}: {self.response_text}'
+
+
+class AdvertCategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    advert = models.ForeignKey(Advert, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.category.name}: {self.advert.title}'
+
+
 # Create your models here.
