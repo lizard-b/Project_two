@@ -1,13 +1,27 @@
 from django.contrib import admin
-from .models import (Category, Advert, AdvertCategory,
+from mptt.admin import DraggableMPTTAdmin
+from .models import (Category, Advert,
                      Author, Response)
+
+
+@admin.register(Category)
+class CategoryAdmin(DraggableMPTTAdmin):
+    """
+    Админ-панель модели категорий
+    """
+    list_display = ('tree_actions', 'indented_title', 'id', 'name', 'slug')
+    list_display_links = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}
+
+    fieldsets = (
+        ('Основная информация', {'fields': ('name', 'slug', 'parent')}),
+        ('Описание', {'fields': ('description',)})
+    )
 
 
 admin.site.register(Author)
 admin.site.register(Advert)
 admin.site.register(Response)
-admin.site.register(Category)
-admin.site.register(AdvertCategory)
 
 
 # Register your models here.

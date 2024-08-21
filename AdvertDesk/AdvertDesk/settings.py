@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_ckeditor_5',
     'adverts',
+    'mptt',
 
     'django.contrib.sites',
     'django.contrib.flatpages',

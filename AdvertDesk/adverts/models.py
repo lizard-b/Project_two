@@ -1,4 +1,5 @@
 from django.db import models
+from mptt.models import MPTTModel, TreeForeignKey
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth import get_user_model
 from django_ckeditor_5.fields import CKEditor5Field
@@ -13,9 +14,36 @@ class Author(models.Model):
         return self.user.username
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+class Category(MPTTModel):
+    """
+    Модель категорий с вложенностью
+    """
+    name = models.CharField(max_length=255, unique=True, verbose_name='Название категории')
     subscribers = models.ManyToManyField(User, related_name='category_subscribers')
+    slug = models.SlugField(max_length=255, verbose_name='URL категории', blank=True)
+    description = models.TextField(verbose_name='Описание категории', max_length=300)
+    parent = TreeForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        db_index=True,
+        related_name='children',
+        verbose_name='Родительская категория'
+    )
+
+    class MPTTMeta:
+        """
+        Сортировка по вложенности
+        """
+        order_insertion_by = ('name',)
+
+    class Meta:
+        """
+        Сортировка, название модели в админ панели, таблица в данными
+        """
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
     def __str__(self):
         return self.name
@@ -44,7 +72,13 @@ class Advert(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
     author = models.ForeignKey(Author, verbose_name='Автор', on_delete=models.CASCADE, related_name='author_adverts')
-    category = models.ManyToManyField(Category, through='AdvertCategory', related_name='advert_category')
+    category = TreeForeignKey('Category', on_delete=models.PROTECT, related_name='adverts_category', verbose_name='Категория')
+
+    class Meta:
+        ordering = ['-time_create']
+        indexes = [models.Index(fields=['-time_create', 'status'])]
+        verbose_name = 'Объявление'
+        verbose_name_plural = 'Объявления'
 
     def __str__(self):
         return f'{self.title}'
@@ -58,14 +92,6 @@ class Response(models.Model):
 
     def __str__(self):
         return f'{self.user.username}: {self.response_text}'
-
-
-class AdvertCategory(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    advert = models.ForeignKey(Advert, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.category.name}: {self.advert.title}'
 
 
 # Create your models here.
