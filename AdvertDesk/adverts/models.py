@@ -10,7 +10,7 @@ User = get_user_model()
 
 
 class Author(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_is_author')
 
     class Meta:
         """
@@ -73,9 +73,9 @@ class Advert(models.Model):
 
         def all(self):
             """
-            Список объявлений (SQL запрос с фильтрацией)
+            Список объявлений (SQL запрос с фильтрацией и оптимизацией через select_related())
             """
-            return self.get_queryset().filter(status='published')
+            return self.get_queryset().select_related('author','category').filter(status='published')
 
     STATUS_OPTIONS = (
         ('published', 'Опубликовано'),
