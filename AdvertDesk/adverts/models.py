@@ -66,6 +66,17 @@ class Advert(models.Model):
     Модель объявлений
     """
 
+    class AdvertManager(models.Manager):
+        """
+        Кастомный менеджер для модели объявлений
+        """
+
+        def all(self):
+            """
+            Список объявлений (SQL запрос с фильтрацией)
+            """
+            return self.get_queryset().filter(status='published')
+
     STATUS_OPTIONS = (
         ('published', 'Опубликовано'),
         ('draft', 'Черновик')
@@ -86,6 +97,8 @@ class Advert(models.Model):
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
     author = models.ForeignKey(Author, verbose_name='Автор', on_delete=models.CASCADE, related_name='author_adverts')
     category = TreeForeignKey('Category', on_delete=models.PROTECT, related_name='adverts_category', verbose_name='Категория')
+
+    objects = AdvertManager()
 
     class Meta:
         ordering = ['-time_create']
