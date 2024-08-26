@@ -13,9 +13,10 @@
         {% include 'header.html' %}
         <div class="row">
             <div class="col-8">
-            {% block content %}
+                {% block content %}
 
-            {% endblock %}
+                {% endblock %}
+                {% include 'pagination.html' %}
             </div>
             <div class="col-4">
                 {% include 'sidebar.html' %}
