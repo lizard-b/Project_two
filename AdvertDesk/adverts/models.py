@@ -10,6 +10,13 @@ User = get_user_model()
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 
+    class Meta:
+        """
+        Название модели в админ панели
+        """
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
+
     def __str__(self):
         return self.user.username
 
@@ -40,7 +47,7 @@ class Category(MPTTModel):
 
     class Meta:
         """
-        Сортировка, название модели в админ панели, таблица в данными
+        Название модели в админ панели
         """
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
@@ -64,7 +71,7 @@ class Advert(models.Model):
     thumbnail = models.ImageField(
         verbose_name='Превью объявления',
         blank=True,
-        upload_to='media/images/thumbnails/',
+        upload_to='media/images/thumbnails/%Y/%m/%d/',
         validators=[FileExtensionValidator(allowed_extensions=('png', 'jpg', 'webp', 'jpeg', 'gif'))]
     )
     content = CKEditor5Field(verbose_name='Содержание объявления', config_name='extends')
@@ -89,6 +96,13 @@ class Response(models.Model):
     response_text = models.TextField(default="There is no response yet.")
     advert = models.ForeignKey(Advert, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advert_response')
+
+    class Meta:
+        """
+        Название модели в админ панели
+        """
+        verbose_name = 'Отклик'
+        verbose_name_plural = 'Отклики'
 
     def __str__(self):
         return f'{self.user.username}: {self.response_text}'
