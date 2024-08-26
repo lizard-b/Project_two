@@ -19,8 +19,12 @@ class CategoryAdmin(DraggableMPTTAdmin):
     )
 
 
+@admin.register(Advert)
+class AdvertAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+
+
 admin.site.register(Author)
-admin.site.register(Advert)
 admin.site.register(Response)
 
 

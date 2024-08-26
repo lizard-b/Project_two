@@ -4,6 +4,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth import get_user_model
 from django_ckeditor_5.fields import CKEditor5Field
+from modules.services.utils import unique_slugify
 
 User = get_user_model()
 
@@ -93,6 +94,14 @@ class Advert(models.Model):
 
     def get_absolute_url(self):
         return reverse('adverts_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        """
+        Сохранение полей модели при их отсутствии заполнения
+        """
+        if not self.slug:
+            self.slug = unique_slugify(self, self.title)
+        super().save(*args, **kwargs)
 
 
 class Response(models.Model):

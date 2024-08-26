@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'adverts.apps.AdvertsConfig',
+    'modules.services',
     'django_ckeditor_5',
-    'adverts',
     'mptt',
 
     'django.contrib.sites',

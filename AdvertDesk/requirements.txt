@@ -37,6 +37,7 @@ pycparser==2.22
 pylint==3.2.6
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
+pytils==0.4.1
 pytz==2024.1
 redis==5.0.8
 requests==2.32.3
