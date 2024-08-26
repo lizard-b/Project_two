@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
 
-from NewsPortal.news.runapsheduler_tasks import *
+from news.runapsheduler_tasks import *
 
 logger = logging.getLogger(__name__)
 
