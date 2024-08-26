@@ -1,5 +1,5 @@
 from django.utils import timezone
-from news.models import Post, Category
+from NewsPortal.news.models import Post, Category
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
