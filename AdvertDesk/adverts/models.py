@@ -67,7 +67,7 @@ class Advert(models.Model):
     )
 
     title = models.CharField(verbose_name='Заголовок', max_length=255)
-    slug = models.SlugField(verbose_name='URL', max_length=255, blank=True, unique=True)
+    slug = models.SlugField(verbose_name='URL объявления', max_length=255, blank=True, unique=True)
     thumbnail = models.ImageField(
         verbose_name='Превью объявления',
         blank=True,
