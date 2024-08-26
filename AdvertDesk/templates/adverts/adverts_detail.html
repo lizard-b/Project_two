@@ -1,13 +1,10 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    {% for advert in adverts %}
-        <img src={{ advert.thumbnail.url }} alt={{ advert.title }} width="150"/>
+        <img src={{ advert.thumbnail.url }} alt={{ advert.title }} width="250"/>
         <strong>{{ advert.title }}</strong>
+        <p>{{ advert.content }}</p>
         <small>{{ advert.time_create }}</small>
         <hr>
         <span>{{ advert.category.name }}</span>
-        <hr>
-        <a href="{{ advert.get_absolute_url }}">Подробнее</a>
-    {% endfor %}
 {% endblock %}
