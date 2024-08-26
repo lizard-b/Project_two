@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor5/', include('django_ckeditor_5.urls'), name="ck_editor_5_upload_file"),
     path('', include('adverts.urls')),
+    path('', include('modules.system.urls')),
 ]
 
 if settings.DEBUG:
