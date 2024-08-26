@@ -2,12 +2,20 @@
 
 {% block content %}
     {% for advert in adverts %}
-        <img src={{ advert.thumbnail.url }} alt={{ advert.title }} width="150"/>
-        <strong>{{ advert.title }}</strong>
-        <small>{{ advert.time_create }}</small>
-        <hr>
-        <span>{{ advert.category.name }}</span>
-        <hr>
-        <a href="{{ advert.get_absolute_url }}">Подробнее</a>
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col-4">
+                <img src={{ advert.thumbnail.url }} alt={{ advert.title }} width="150"/>
+            </div>
+            <div class="col-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ advert.title }}</h5>
+                    <div class="card-subtitle">{{ advert.author.user.username }}</div>
+                    <p class="card-text">{{ advert.short_content }}</p>
+                    <a href="{% url 'adverts_by_category' advert.category.slug %}" class="btn btn-primary">{{ advert.category.name }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endfor %}
 {% endblock %}

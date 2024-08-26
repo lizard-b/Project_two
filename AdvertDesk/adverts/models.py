@@ -57,6 +57,9 @@ class Category(MPTTModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('adverts_by_category', kwargs={'slug': self.slug})
+
 
 class Advert(models.Model):
     """
@@ -77,6 +80,7 @@ class Advert(models.Model):
         validators=[FileExtensionValidator(allowed_extensions=('png', 'jpg', 'webp', 'jpeg', 'gif'))]
     )
     content = CKEditor5Field(verbose_name='Содержание объявления', config_name='extends')
+    short_content = CKEditor5Field(max_length=500, verbose_name='Краткое содержание объявления', config_name='extends')
     status = models.CharField(choices=STATUS_OPTIONS, default='published', verbose_name='Статус объявления', max_length=10)
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
