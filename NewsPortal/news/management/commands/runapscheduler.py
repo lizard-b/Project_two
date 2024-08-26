@@ -8,6 +8,8 @@ from django_apscheduler.models import DjangoJobExecution
 
 from news.runapsheduler_tasks import *
 
+from NewsPortal.NewsPortal import settings
+
 logger = logging.getLogger(__name__)
 
 
