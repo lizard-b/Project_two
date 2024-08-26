@@ -4,7 +4,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth import get_user_model
 from django_ckeditor_5.fields import CKEditor5Field
-from ..modules.services.utils import unique_slugify
+from modules.services.utils import unique_slugify
 
 User = get_user_model()
 
