@@ -4,7 +4,7 @@ from django.views.generic import (ListView, DetailView,
                                   CreateView, UpdateView, DeleteView )
 
 from .forms import AdvertCreateForm
-from .models import Advert, Category
+from .models import Advert, Category, Author
 
 
 class AdvertsListView(ListView):
@@ -48,6 +48,7 @@ class AdvertsByCategoryListView(ListView):
         context['title'] = f'Объявления из категории: {self.category.name}'
         return context
 
+
 class AdvertCreateView(CreateView):
     """
     Представление: создание объявления на сайте
@@ -62,7 +63,7 @@ class AdvertCreateView(CreateView):
         return context
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        form.instance.author = Author.objects.get(pk=self.request.user.id)
         form.save()
         return super().form_valid(form)
 

@@ -75,7 +75,7 @@ class Advert(models.Model):
             """
             Список объявлений (SQL запрос с фильтрацией и оптимизацией через select_related())
             """
-            return self.get_queryset().select_related('author','category').filter(status='published')
+            return self.get_queryset().select_related('author', 'category').filter(status='published')
 
     STATUS_OPTIONS = (
         ('published', 'Опубликовано'),
