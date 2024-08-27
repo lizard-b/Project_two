@@ -71,7 +71,7 @@ class AdvertCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class AdvertUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class AdvertUpdateView(AuthorRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Представление: обновление материала на сайте
     """
