@@ -1,5 +1,3 @@
-from allauth.account.forms import SignupForm
-from django.contrib.auth.models import User, Group
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Advert
@@ -10,7 +8,7 @@ class AdvertCreateForm(forms.ModelForm):
 
     class Meta:
         model = Advert
-        fields = ['title', 'slug', 'content', 'category', 'author', 'thumbnail', 'status']
+        fields = ['title', 'slug', 'content', 'short_content', 'category', 'thumbnail', 'status']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -33,5 +31,7 @@ class AdvertCreateForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({'class': 'form-control', 'autocomplete': 'off'})
 
         self.fields['content'].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
+        self.fields['short_content'].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
         self.fields['content'].required = False
+        self.fields['short_content'].required = False
 

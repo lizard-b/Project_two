@@ -1,0 +1,6 @@
+{% extends 'main.html' %}
+
+{% block content %}
+            <h4>Уважаемый {{username}}, редактировать или удалять объявление может только автор!</h4>
+            <button onclick="history.go(-2)">Назад к объявлению</button>
+{% endblock %}
