@@ -1,14 +1,16 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (ListView, DetailView,
-                                  CreateView, UpdateView, DeleteView )
+                                  CreateView, UpdateView, DeleteView)
 
 from .forms import AdvertCreateForm
 from .models import Advert, Category, Author
+from modules.services.mixins import AuthorRequiredMixin
 
 
 class AdvertsListView(ListView):
-
     model = Advert
     ordering = 'time_create'
     template_name = 'adverts/adverts_list.html'
@@ -49,13 +51,14 @@ class AdvertsByCategoryListView(ListView):
         return context
 
 
-class AdvertCreateView(CreateView):
+class AdvertCreateView(LoginRequiredMixin, CreateView):
     """
     Представление: создание объявления на сайте
     """
     model = Advert
     template_name = 'adverts/adverts_create.html'
     form_class = AdvertCreateForm
+    login_url = 'adverts_home'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -68,7 +71,7 @@ class AdvertCreateView(CreateView):
         return super().form_valid(form)
 
 
-class AdvertUpdateView(UpdateView):
+class AdvertUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Представление: обновление материала на сайте
     """
@@ -76,6 +79,8 @@ class AdvertUpdateView(UpdateView):
     template_name = 'adverts/adverts_update.html'
     context_object_name = 'advert'
     form_class = AdvertCreateForm
+    login_url = 'adverts_home'
+    success_message = 'Материал был успешно обновлен'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -87,13 +92,13 @@ class AdvertUpdateView(UpdateView):
         title_fob = 'Запрет удаления/редактирования объявления'
         curr_user = advert.author.user.username
         if self.request.user.username != curr_user:
-            return render(self.request, 'advert_del_upd_restrict.html', {'title': title_fob,
-                                                                         'username': curr_user})
+            return render(self.request, 'adverts/advert_del_upd_restrict.html', {'title': title_fob,
+                                                                                 'username': curr_user})
         advert.save()
         return super().form_valid(form)
 
 
-class AdvertDeleteView(DeleteView):
+class AdvertDeleteView(AuthorRequiredMixin, DeleteView):
     """
     Представление: удаления материала
     """
@@ -112,8 +117,8 @@ class AdvertDeleteView(DeleteView):
         title_fob = 'Запрет удаления/редактирования объявления'
         curr_user = advert.author.user.username
         if self.request.user.username != curr_user:
-            return render(self.request, 'advert_del_upd_restrict.html', {'title': title_fob,
-                                                                         'username': curr_user})
+            return render(self.request, 'adverts/advert_del_upd_restrict.html', {'title': title_fob,
+                                                                                 'username': curr_user})
         return super().form_valid(form)
 
 # Create your views here.
