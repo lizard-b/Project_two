@@ -26,7 +26,8 @@ class ProfileDetailView(DetailView):
     model = Profile
     context_object_name = 'profile'
     template_name = 'system/profile_detail.html'
-    queryset = model.objects.all().select_related('user') #способ не создавая менеджер модели, оптимизировать SQL во views.py
+    # способ не создавая менеджер модели, оптимизировать SQL во views.py
+    queryset = model.objects.all().select_related('user')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
