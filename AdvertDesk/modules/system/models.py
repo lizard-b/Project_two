@@ -51,6 +51,7 @@ class Profile(models.Model):
         """
         return reverse('profile_detail', kwargs={'slug': self.slug})
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

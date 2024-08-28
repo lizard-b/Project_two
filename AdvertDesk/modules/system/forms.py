@@ -71,24 +71,21 @@ class UserRegisterForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         fields = UserCreationForm.Meta.fields + ('email', 'first_name', 'last_name')
 
-    def clean_email(self):
+    def clean_email_username(self):
         """
-        Проверка email на уникальность
+        Проверка email и username на уникальность
         """
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
         if email and User.objects.filter(email=email).exclude(username=username).exists():
             raise forms.ValidationError('Такой email уже используется в системе')
-        return email
 
-    def clean_username(self):
-        username = self.cleaned_data.get("username")
-        if User.objects.get(username=username).exists():
+        if username and User.objects.filter(username=username).exclude(email=email).exists():
             # if the user exists, then let's raise an error message
             raise forms.ValidationError(
                 self.error_messages['username_exists'],  # my error message
                 code='username_exists')  # set the error message key
-        return username  # if user does not exist so we can continue the registration process
+        return username, email  # if user does not exist so we can continue the registration process
 
     def __init__(self, *args, **kwargs):
         """
