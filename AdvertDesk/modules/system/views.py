@@ -16,7 +16,7 @@ from .models import Profile
 from .forms import (UserUpdateForm, ProfileUpdateForm, UserRegisterForm,
                     UserLoginForm, UserPasswordChangeForm, UserForgotPasswordForm, UserSetNewPasswordForm,
                     )
-from ...AdvertDesk import settings
+from AdvertDesk import settings
 
 
 class ProfileDetailView(DetailView):

@@ -62,6 +62,11 @@ class UserRegisterForm(UserCreationForm):
     """
     Переопределенная форма регистрации пользователей
     """
+    error_messages = {
+        'password_mismatch': "Пароли не совпадают.",
+        'error': "Форма не валидна.",
+        'username_exists': "Пользователь с таким именем уже существует.",
+    }
 
     class Meta(UserCreationForm.Meta):
         fields = UserCreationForm.Meta.fields + ('email', 'first_name', 'last_name')
@@ -75,6 +80,15 @@ class UserRegisterForm(UserCreationForm):
         if email and User.objects.filter(email=email).exclude(username=username).exists():
             raise forms.ValidationError('Такой email уже используется в системе')
         return email
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        if User.objects.get(username=username).exists():
+            # if the user exists, then let's raise an error message
+            raise forms.ValidationError(
+                self.error_messages['username_exists'],  # my error message
+                code='username_exists')  # set the error message key
+        return username  # if user does not exist so we can continue the registration process
 
     def __init__(self, *args, **kwargs):
         """
