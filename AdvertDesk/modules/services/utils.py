@@ -16,5 +16,5 @@ def unique_slugify(instance, slug):
 
 
 def generate_otp():
-    totp = pyotp.TOTP('base32secret3232')
+    totp = pyotp.TOTP('base32secret3232', interval=300)
     return totp.now()

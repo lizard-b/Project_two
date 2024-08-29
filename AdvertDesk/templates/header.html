@@ -10,31 +10,31 @@
             <li>
               <a href="#" class="nav-link text-secondary">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
-                Home
+                Главная
               </a>
             </li>
             <li>
               <a href="#" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
-                Dashboard
+                База знаний
               </a>
             </li>
             <li>
               <a href="#" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"></use></svg>
-                Orders
+                Новости
               </a>
             </li>
             <li>
               <a href="#" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"></use></svg>
-                Products
+                F.A.Q.
               </a>
             </li>
             <li>
               <a href="#" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"></use></svg>
-                Customers
+                О команде
               </a>
             </li>
           </ul>
@@ -44,15 +44,15 @@
     <div class="px-3 py-2 border-bottom mb-3">
       <div class="container d-flex flex-wrap justify-content-center">
         <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+          <input type="search" class="form-control" placeholder="Поиск..." aria-label="Search">
         </form>
 
         <div class="text-end">
           <form method="post" action="{% url 'login' %}" class="d-inline-block ml-2">
               {% csrf_token %}
-              <button type="submit" class="btn btn-light text-dark me-2">Login</button>
+              <button type="submit" class="btn btn-light text-dark me-2">Войти</button>
           </form>
-          <button type="button" class="btn btn-primary">Sign-up</button>
+          <button type="button" class="btn btn-primary">Регистрация</button>
         </div>
       </div>
     </div>

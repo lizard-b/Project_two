@@ -184,7 +184,7 @@ class UserRegisterView(UserIsNotAuthenticated, CreateView):
             'Подтвердите свой электронный адрес',
             f'Ваш код: {otp}. Пожалуйста, введите его на странице подтверждения: '
             f'http://{current_site}{reverse_lazy("verify_email")}',
-            [settings.DEFAULT_FROM_EMAIL],
+            settings.DEFAULT_FROM_EMAIL,
             [user.email],
             fail_silently=False,
         )
@@ -239,7 +239,7 @@ class RequestNewOTPView(View):
                 'Новый код подтверждения',
                 f'Ваш новый код: {otp}. Пожалуйста, введите его на странице подтверждения: '
                 f'http://{current_site}{reverse_lazy("verify_email")}',
-                [settings.DEFAULT_FROM_EMAIL],
+                settings.DEFAULT_FROM_EMAIL,
                 [user.email],
                 fail_silently=False,
             )
