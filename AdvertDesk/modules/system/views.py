@@ -17,9 +17,11 @@ from django.urls import reverse_lazy
 from .models import Profile
 from .forms import (UserUpdateForm, ProfileUpdateForm, UserRegisterForm,
                     UserLoginForm, UserPasswordChangeForm, UserForgotPasswordForm, UserSetNewPasswordForm,
+                    OTPConfirmationForm,
                     )
 from AdvertDesk import settings
 from ..services.mixins import UserIsNotAuthenticated
+from ..services.utils import generate_otp
 
 User = get_user_model()
 
@@ -169,9 +171,11 @@ class UserRegisterView(UserIsNotAuthenticated, CreateView):
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         activation_url = reverse_lazy('confirm_email', kwargs={'uidb64': uid, 'token': token})
         current_site = Site.objects.get_current().domain
+        email_otp = generate_otp()
         send_mail(
             'Подтвердите свой электронный адрес',
-            f'Пожалуйста, перейдите по следующей ссылке, чтобы подтвердить свой адрес электронной почты: http://{current_site}{activation_url}',
+            f'Ваш код активации {email_otp}. Пожалуйста, перейдите по следующей ссылке и введите его,'
+            f' чтобы подтвердить свой адрес электронной почты: http://{current_site}{activation_url}',
             [settings.DEFAULT_FROM_EMAIL],
             [user.email],
             fail_silently=False,
@@ -194,6 +198,34 @@ class UserConfirmEmailView(View):
             return redirect('email_confirmed')
         else:
             return redirect('email_confirmation_failed')
+
+
+class UserOTPConfirmEmailView(TemplateView):
+    """
+    Подтверждение почты через ОТР
+    """
+    form_class = OTPConfirmationForm
+    template_name = 'system/registration/verify_otp.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Подтверждение почты через OTP'
+        return context
+
+    # def get(self, request, uidb64, token, email_otp):
+    #     try:
+    #         uid = urlsafe_base64_decode(uidb64)
+    #         user = User.objects.get(pk=uid)
+    #     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+    #         user = None
+    #
+    #     if user is not None and default_token_generator.check_token(user, token):
+    #         user.is_active = True
+    #         user.save()
+    #         login(request, user)
+    #         return redirect('email_confirmed')
+    #     else:
+    #         return redirect('email_confirmation_failed')
 
 
 class EmailConfirmationSentView(TemplateView):

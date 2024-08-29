@@ -102,6 +102,25 @@ class UserRegisterForm(UserCreationForm):
             self.fields[field].widget.attrs.update({"class": "form-control", "autocomplete": "off"})
 
 
+class OTPConfirmationForm(forms.Form):
+    code = forms.CharField(required=True, max_length=50, label='Код подтверждения',
+                           widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+                           error_messages={'required': 'Введите код!',
+                                           'max_length': 'Максимальное количество символов 6'})
+
+
+    def __init__(self, *args, **kwargs):
+        """
+        Переопределение стилей формы обновления под bootstrap
+        """
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control',
+                'autocomplete': 'off'
+            })
+
+
 class UserLoginForm(AuthenticationForm):
     """
     Форма авторизации на сайте

@@ -5,7 +5,7 @@ from .views import (ProfileUpdateView, ProfileDetailView,
                     UserPasswordChangeView, UserForgotPasswordView,
                     UserPasswordResetConfirmView, EmailConfirmationSentView,
                     UserConfirmEmailView, EmailConfirmedView,
-                    EmailConfirmationFailedView,
+                    EmailConfirmationFailedView, UserOTPConfirmEmailView,
                     )
 
 urlpatterns = [
@@ -18,7 +18,8 @@ urlpatterns = [
     path('set-new-password/<uidb64>/<token>/', UserPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('register/', UserRegisterView.as_view(), name='register'),
     path('email-confirmation-sent/', EmailConfirmationSentView.as_view(), name='email_confirmation_sent'),
-    path('confirm-email/<str:uidb64>/<str:token>/', UserConfirmEmailView.as_view(), name='confirm_email'),
+    # path('confirm-email/<str:uidb64>/<str:token>/', UserConfirmEmailView.as_view(), name='confirm_email'),
+    path('confirm-email/', UserOTPConfirmEmailView.as_view(), name='confirm_email'),
     path('email-confirmed/', EmailConfirmedView.as_view(), name='email_confirmed'),
     path('confirm-email-failed/', EmailConfirmationFailedView.as_view(), name='email_confirmation_failed'),
 ]
