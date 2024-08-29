@@ -1,9 +1,9 @@
 {% extends "main.html" %}
+
 {% block content %}
-
-<form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">logout</button>
-</form>
-
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Вы успешно вышли из системы!</h4>
+    <p>Для повторного входа нажмите на кнопку, после этого введите логин и пароль
+    в соответствующие поля формы.</p>
+</div>
 {% endblock %}
