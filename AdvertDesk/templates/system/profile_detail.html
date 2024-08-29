@@ -22,6 +22,10 @@
                             <li>О себе: {{ profile.bio }}</li>
                         </ul>
                     <a href="{% url 'profile_edit' %}" class="btn btn-sm btn-primary">Редактировать профиль</a>
+                    <form method="post" action="{% url 'logout' %}" class="d-inline-block ml-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-secondary">Выйти</button>
+                    </form>
                     </div>
                 </div>
             </div>
