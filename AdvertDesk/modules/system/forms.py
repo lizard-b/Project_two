@@ -42,6 +42,7 @@ class ProfileUpdateForm(forms.ModelForm):
     """
     Форма обновления данных профиля пользователя
     """
+
     class Meta:
         model = Profile
         fields = ('slug', 'birth_date', 'bio', 'avatar')
@@ -103,22 +104,8 @@ class UserRegisterForm(UserCreationForm):
 
 
 class OTPConfirmationForm(forms.Form):
-    code = forms.CharField(required=True, max_length=50, label='Код подтверждения',
-                           widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-                           error_messages={'required': 'Введите код!',
-                                           'max_length': 'Максимальное количество символов 6'})
-
-
-    def __init__(self, *args, **kwargs):
-        """
-        Переопределение стилей формы обновления под bootstrap
-        """
-        super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control',
-                'autocomplete': 'off'
-            })
+    otp = forms.CharField(label='Код подтверждения', max_length=6, min_length=6,
+                          widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 
 class UserLoginForm(AuthenticationForm):
@@ -145,6 +132,7 @@ class UserPasswordChangeForm(SetPasswordForm):
     """
     Форма изменения пароля
     """
+
     def __init__(self, *args, **kwargs):
         """
         Обновление стилей формы
@@ -155,6 +143,7 @@ class UserPasswordChangeForm(SetPasswordForm):
                 'class': 'form-control',
                 'autocomplete': 'off'
             })
+
 
 class UserForgotPasswordForm(PasswordResetForm):
     """
@@ -188,4 +177,3 @@ class UserSetNewPasswordForm(SetPasswordForm):
                 'class': 'form-control',
                 'autocomplete': 'off'
             })
-

@@ -4,6 +4,7 @@ from django.core.validators import FileExtensionValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils import timezone
 
 from ..services.utils import unique_slugify
 
@@ -11,7 +12,7 @@ User = get_user_model()
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     slug = models.SlugField(verbose_name='URL профиля пользователя', max_length=255, blank=True, unique=True)
     avatar = models.ImageField(
         verbose_name='Аватар',
@@ -21,6 +22,9 @@ class Profile(models.Model):
         validators=[FileExtensionValidator(allowed_extensions=('png', 'jpg', 'jpeg'))])
     bio = models.TextField(max_length=500, blank=True, verbose_name='Информация о себе')
     birth_date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
+    otp = models.CharField(max_length=6, blank=True, null=True)
+    otp_created_at = models.DateTimeField(null=True, blank=True)
+    email_confirmed = models.BooleanField(default=False)
 
     class Meta:
         """
@@ -50,6 +54,11 @@ class Profile(models.Model):
         Ссылка на профиль
         """
         return reverse('profile_detail', kwargs={'slug': self.slug})
+
+    def is_otp_valid(self):
+        if self.otp and self.otp_created_at:
+            return timezone.now() - self.otp_created_at < timezone.timedelta(minutes=5)
+        return False
 
 
 @receiver(post_save, sender=User)

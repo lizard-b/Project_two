@@ -26,3 +26,9 @@ class UserIsNotAuthenticated(UserPassesTestMixin):
 
     def handle_no_permission(self):
         return redirect('adverts_home')
+
+
+class EmailConfirmedMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_authenticated and self.request.user.profile.email_confirmed
+

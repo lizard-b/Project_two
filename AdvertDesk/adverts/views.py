@@ -7,7 +7,7 @@ from django.views.generic import (ListView, DetailView,
 
 from .forms import AdvertCreateForm
 from .models import Advert, Category, Author
-from modules.services.mixins import AuthorRequiredMixin
+from modules.services.mixins import AuthorRequiredMixin, EmailConfirmedMixin
 
 
 class AdvertsListView(ListView):
@@ -51,7 +51,7 @@ class AdvertsByCategoryListView(ListView):
         return context
 
 
-class AdvertCreateView(LoginRequiredMixin, CreateView):
+class AdvertCreateView(LoginRequiredMixin, EmailConfirmedMixin, CreateView):
     """
     Представление: создание объявления на сайте
     """
@@ -71,7 +71,7 @@ class AdvertCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class AdvertUpdateView(AuthorRequiredMixin, SuccessMessageMixin, UpdateView):
+class AdvertUpdateView(AuthorRequiredMixin, SuccessMessageMixin, EmailConfirmedMixin, UpdateView):
     """
     Представление: обновление материала на сайте
     """
@@ -98,7 +98,7 @@ class AdvertUpdateView(AuthorRequiredMixin, SuccessMessageMixin, UpdateView):
         return super().form_valid(form)
 
 
-class AdvertDeleteView(AuthorRequiredMixin, DeleteView):
+class AdvertDeleteView(AuthorRequiredMixin, EmailConfirmedMixin, DeleteView):
     """
     Представление: удаления материала
     """

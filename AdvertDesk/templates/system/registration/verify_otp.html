@@ -1,16 +1,20 @@
 {% extends 'main.html' %}
-
 {% block content %}
-    <div class="card mb-3 border-0 nth-shadow">
-        <div class="card-body">
-            <div class="card-title nth-card-title">
-                <h4>Подтверждение почты через OTP</h4>
-            </div>
-            <form method="post" action="{% url 'confirm_email' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-dark mt-2">Подтвердить</button>
-            </form>
+<div class="card mb-3 border-0 nth-shadow">
+    <div class="card-body">
+        <div class="card-title nth-card-title">
+            <h4>Подтверждение почты через OTP</h4>
         </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Подтвердить</button>
+        </form>
+        {% if can_request_new_otp %}
+        <p class="mt-3">
+            Если ваш код истек, вы можете <a href="{% url 'request_new_otp' %}">запросить новый код</a>.
+        </p>
+        {% endif %}
     </div>
+</div>
 {% endblock %}

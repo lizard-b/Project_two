@@ -1,13 +1,12 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model, login
-from django.contrib.auth.tokens import default_token_generator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
 from django.shortcuts import redirect
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils import timezone
 from django.views import View
-from django.views.generic import DetailView, UpdateView, CreateView, TemplateView
+from django.views.generic import DetailView, UpdateView, CreateView, TemplateView, FormView
 from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordChangeView, PasswordResetView, PasswordResetConfirmView,
                                        )
@@ -97,7 +96,7 @@ class UserLogoutView(LogoutView):
     """
     Выход с сайта
     """
-    next_page = 'adverts_home'
+    next_page = reverse_lazy('adverts_home')
 
 
 class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
@@ -154,8 +153,9 @@ class UserRegisterView(UserIsNotAuthenticated, CreateView):
     Представление регистрации на сайте с формой регистрации
     """
     form_class = UserRegisterForm
-    success_url = reverse_lazy('adverts_home')
+    success_url = reverse_lazy('email_confirmation_sent')
     template_name = 'system/registration/user_register.html'
+    success_message = 'Код подтверждения отправлен на вашу почту.'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -164,68 +164,84 @@ class UserRegisterView(UserIsNotAuthenticated, CreateView):
 
     def form_valid(self, form):
         user = form.save(commit=False)
-        user.is_active = False
+        user.is_active = True
         user.save()
-        # Функционал для отправки письма и генерации токена
-        token = default_token_generator.make_token(user)
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        activation_url = reverse_lazy('confirm_email', kwargs={'uidb64': uid, 'token': token})
+
+        profile = Profile.objects.get(user=user)
+        profile.email_confirmed = False
+        otp = generate_otp()
+        profile.otp = otp
+        profile.otp_created_at = timezone.now()
+        profile.save()
+
         current_site = Site.objects.get_current().domain
-        email_otp = generate_otp()
         send_mail(
             'Подтвердите свой электронный адрес',
-            f'Ваш код активации {email_otp}. Пожалуйста, перейдите по следующей ссылке и введите его,'
-            f' чтобы подтвердить свой адрес электронной почты: http://{current_site}{activation_url}',
+            f'Ваш код: {otp}. Пожалуйста, введите его на странице подтверждения: '
+            f'http://{current_site}{reverse_lazy("verify_email")}',
             [settings.DEFAULT_FROM_EMAIL],
             [user.email],
             fail_silently=False,
         )
+        login(self.request, user)
         return redirect('email_confirmation_sent')
 
 
-class UserConfirmEmailView(View):
-    def get(self, request, uidb64, token):
-        try:
-            uid = urlsafe_base64_decode(uidb64)
-            user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-            user = None
-
-        if user is not None and default_token_generator.check_token(user, token):
-            user.is_active = True
-            user.save()
-            login(request, user)
-            return redirect('email_confirmed')
-        else:
-            return redirect('email_confirmation_failed')
-
-
-class UserOTPConfirmEmailView(TemplateView):
+class OTPVerificationView(FormView):
     """
     Подтверждение почты через ОТР
     """
     form_class = OTPConfirmationForm
     template_name = 'system/registration/verify_otp.html'
+    success_url = reverse_lazy('email_confirmed')
+
+    def form_valid(self, form):
+        otp = form.cleaned_data['otp']
+        try:
+            profile = self.request.user.profile
+            if profile.otp == otp and profile.is_otp_valid():
+                profile.email_confirmed = True
+                profile.otp = None
+                profile.otp_created_at = None
+                profile.save()
+                # messages.success(self.request, 'Email успешно подтвержден.')
+                return super().form_valid(form)
+            else:
+                form.add_error('otp', 'Неверный OTP или OTP истек.')
+        except Profile.DoesNotExist:
+            form.add_error('otp', 'Профиль пользователя не найден.')
+        return self.form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Подтверждение почты через OTP'
+        context['title'] = 'Подтверждение email'
+        context['can_request_new_otp'] = self.request.user.is_authenticated and not self.request.user.profile.email_confirmed
         return context
 
-    # def get(self, request, uidb64, token, email_otp):
-    #     try:
-    #         uid = urlsafe_base64_decode(uidb64)
-    #         user = User.objects.get(pk=uid)
-    #     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-    #         user = None
-    #
-    #     if user is not None and default_token_generator.check_token(user, token):
-    #         user.is_active = True
-    #         user.save()
-    #         login(request, user)
-    #         return redirect('email_confirmed')
-    #     else:
-    #         return redirect('email_confirmation_failed')
+
+class RequestNewOTPView(View):
+    def get(self, request):
+        user = request.user
+        if user.is_authenticated and not user.profile.email_confirmed:
+            profile = user.profile
+            otp = generate_otp()
+            profile.otp = otp
+            profile.otp_created_at = timezone.now()
+            profile.save()
+
+            current_site = Site.objects.get_current().domain
+            send_mail(
+                'Новый код подтверждения',
+                f'Ваш новый код: {otp}. Пожалуйста, введите его на странице подтверждения: '
+                f'http://{current_site}{reverse_lazy("verify_email")}',
+                [settings.DEFAULT_FROM_EMAIL],
+                [user.email],
+                fail_silently=False,
+            )
+            messages.success(request, 'Новый код подтверждения отправлен на вашу почту.')
+        else:
+            messages.error(request, 'Вы не можете запросить новый код.')
+        return redirect('verify_email')
 
 
 class EmailConfirmationSentView(TemplateView):
@@ -239,6 +255,7 @@ class EmailConfirmationSentView(TemplateView):
 
 class EmailConfirmedView(TemplateView):
     template_name = 'system/registration/email_confirmed.html'
+    success_url = reverse_lazy('adverts_home')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
