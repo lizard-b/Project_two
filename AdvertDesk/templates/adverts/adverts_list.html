@@ -5,14 +5,15 @@
     <div class="card mb-3">
         <div class="row">
             <div class="col-4">
-                <img src={{ advert.thumbnail.url }} alt={{ advert.title }} width="150"/>
+                <img src="{{ advert.thumbnail.url }}" class="card-img-top" alt="{{ advert.title }}">
             </div>
             <div class="col-8">
                 <div class="card-body">
-                    <h5 class="card-title">{{ advert.title }}</h5>
-                    <div class="card-subtitle">{{ advert.author.user.username }}</div>
+                    <h5 class="card-title"><a href="{{ advert.get_absolute_url }}">{{ advert.title }}</a></h5>
                     <p class="card-text">{{ advert.short_content }}</p>
-                    <a href="{% url 'adverts_by_category' advert.category.slug %}" class="btn btn-primary">{{ advert.category.name }}</a>
+                    </hr>
+                    Категория: <a href="{% url 'adverts_by_category' advert.category.slug %}">{{ advert.category.name }}</a>
+                    / Добавил: {{ advert.author.user.username }}
                 </div>
             </div>
         </div>
