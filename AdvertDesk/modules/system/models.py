@@ -12,7 +12,7 @@ User = get_user_model()
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = models.SlugField(verbose_name='URL профиля пользователя', max_length=255, blank=True, unique=True)
     avatar = models.ImageField(
         verbose_name='Аватар',

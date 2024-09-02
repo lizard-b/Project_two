@@ -24,8 +24,19 @@ class AdvertAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
+@admin.register(Response)
+class ResponseAdminPage(DraggableMPTTAdmin):
+    """
+    Админ-панель модели откликов
+    """
+    list_display = ('tree_actions', 'indented_title', 'advert', 'user', 'time_create', 'status')
+    mptt_level_indent = 2
+    list_display_links = ('advert',)
+    list_filter = ('time_create', 'time_update', 'user')
+    list_editable = ('status',)
+
+
 admin.site.register(Author)
-admin.site.register(Response)
 
 
 # Register your models here.

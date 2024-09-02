@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Advert
+from .models import Advert, Response
 
 
 class AdvertCreateForm(forms.ModelForm):
@@ -34,4 +34,16 @@ class AdvertCreateForm(forms.ModelForm):
         self.fields['short_content'].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
         self.fields['content'].required = False
         self.fields['short_content'].required = False
+
+
+class ResponseCreateForm(forms.ModelForm):
+    """
+    Форма добавления комментариев к статьям
+    """
+    parent = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    content = forms.CharField(label='', widget=forms.Textarea(attrs={'cols': 30, 'rows': 5, 'placeholder': 'Отклик', 'class': 'form-control'}))
+
+    class Meta:
+        model = Response
+        fields = ('response_text',)
 

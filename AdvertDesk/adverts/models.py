@@ -92,11 +92,13 @@ class Advert(models.Model):
     )
     content = CKEditor5Field(verbose_name='Содержание объявления', config_name='extends')
     short_content = CKEditor5Field(max_length=500, verbose_name='Краткое содержание объявления', config_name='extends')
-    status = models.CharField(choices=STATUS_OPTIONS, default='published', verbose_name='Статус объявления', max_length=10)
+    status = models.CharField(choices=STATUS_OPTIONS, default='published', verbose_name='Статус объявления',
+                              max_length=10)
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
     author = models.ForeignKey(Author, verbose_name='Автор', on_delete=models.CASCADE, related_name='author_adverts')
-    category = TreeForeignKey('Category', on_delete=models.PROTECT, related_name='adverts_category', verbose_name='Категория')
+    category = TreeForeignKey('Category', on_delete=models.PROTECT, related_name='adverts_category',
+                              verbose_name='Категория')
 
     objects = AdvertManager()
 
@@ -121,21 +123,38 @@ class Advert(models.Model):
         super().save(*args, **kwargs)
 
 
-class Response(models.Model):
+class Response(MPTTModel):
+    """
+        Модель древовидных откликов
+    """
+    STATUS_OPTIONS = (
+        ('published', 'Опубликовано'),
+        ('draft', 'Черновик')
+    )
+
     time_create = models.DateTimeField(auto_now_add=True)
-    response_text = models.TextField(default="There is no response yet.")
-    advert = models.ForeignKey(Advert, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advert_response')
+    time_update = models.DateTimeField(verbose_name='Время обновления', auto_now=True)
+    response_text = models.TextField(verbose_name='Текст отклика', max_length=3000, default="There is no response yet.")
+    advert = models.ForeignKey(Advert, on_delete=models.CASCADE, verbose_name='Объявление', related_name='responses')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор отклика',
+                             related_name='advert_response')
+    status = models.CharField(choices=STATUS_OPTIONS, default='published', verbose_name='Статус отклика', max_length=10)
+    parent = TreeForeignKey('self', verbose_name='Родительский отклик', null=True, blank=True,
+                            related_name='children', on_delete=models.CASCADE)
+
+    class MTTMeta:
+        order_insertion_by = ('-time_create',)
 
     class Meta:
         """
         Название модели в админ панели
         """
+        indexes = [models.Index(fields=['-time_create', 'time_update', 'status', 'parent'])]
+        ordering = ['-time_create']
         verbose_name = 'Отклик'
         verbose_name_plural = 'Отклики'
 
     def __str__(self):
-        return f'{self.user.username}: {self.response_text}'
-
+        return f'{self.user}: {self.response_text}'
 
 # Create your models here.
