@@ -64,7 +64,7 @@
                         {% for response in advert_responses %}
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">Отклик от: {{ response.user.username }} на объявление: <a href="{{ response.advert.get_absolute_url }}">{{ response.advert.title }}</a></h5>
+                                    <h5 class="card-title">Отклик пользователя {{ response.user.username }} на объявление: <a href="{{ response.advert.get_absolute_url }}">{{ response.advert.title }}</a></h5>
                                     <p class="card-text">{{ response.response_text|truncatewords:30 }}</p>
                                     <p class="card-text"><small class="text-muted">Создано: {{ response.time_create }}</small></p>
                                 </div>
