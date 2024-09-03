@@ -38,10 +38,10 @@ class AdvertCreateForm(forms.ModelForm):
 
 class ResponseCreateForm(forms.ModelForm):
     """
-    Форма добавления комментариев к статьям
+    Форма добавления отклика
     """
     parent = forms.IntegerField(widget=forms.HiddenInput, required=False)
-    content = forms.CharField(label='', widget=forms.Textarea(attrs={'cols': 30, 'rows': 5, 'placeholder': 'Отклик', 'class': 'form-control'}))
+    response_text = forms.CharField(label='', widget=forms.Textarea(attrs={'cols': 30, 'rows': 5, 'placeholder': 'Отклик', 'class': 'form-control'}))
 
     class Meta:
         model = Response

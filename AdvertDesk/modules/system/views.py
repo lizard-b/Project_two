@@ -21,6 +21,7 @@ from .forms import (UserUpdateForm, ProfileUpdateForm, UserRegisterForm,
 from AdvertDesk import settings
 from ..services.mixins import UserIsNotAuthenticated
 from ..services.utils import generate_otp
+from adverts.models import Author, Advert, Response
 
 User = get_user_model()
 
@@ -37,7 +38,27 @@ class ProfileDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.object.user
         context['title'] = f'Страница пользователя: {self.object.user.username}'
+
+        # Получаем объявления пользователя
+        try:
+            author = Author.objects.get(user=user)
+            context['adverts'] = Advert.objects.filter(author=author).order_by('-time_create')
+        except Author.DoesNotExist:
+            context['adverts'] = []
+
+        # Получаем отклики пользователя
+        context['user_responses'] = Response.objects.filter(user=user).select_related('advert').order_by('-time_create')
+
+        # Получаем отклики на объявления пользователя
+        if context['adverts']:
+            context['advert_responses'] = Response.objects.filter(advert__in=context['adverts']).select_related('user',
+                                                                                                                'advert').order_by(
+                '-time_create')
+        else:
+            context['advert_responses'] = []
+
         return context
 
 

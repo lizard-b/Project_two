@@ -1,26 +1,70 @@
 {% extends 'main.html' %}
-
 {% block content %}
+
 <div class="card mb-3">
-	<div class="row">
-		<div class="col-4">
-			<img src="{{ advert.thumbnail.url }}" class="card-img-top" alt="{{ advert.title }}" />
-		</div>
-		<div class="col-8">
-			<div class="card-body">
-				<h5>{{ advert.title }}</h5>
-				<p class="card-text">{{ advert.content }}</p>
-				Категория: <a href="{% url 'adverts_by_category' advert.category.slug %}">{{ article.category.name }}</a> / Добавил: {{ advert.author.user.username }} / <small>{{ advert.time_create }}</small>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-4">
+            <img src="{{ advert.thumbnail.url }}" class="card-img-top" alt="{{ advert.title }}">
+        </div>
+        <div class="col-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ advert.title }}</h5>
+                <p class="card-text">{{ advert.content }}</p>
+                <p class="card-text">
+                    Категория: <a href="{% url 'adverts_by_category' advert.category.slug %}">{{ advert.category.name }}</a> /
+                    Добавил: {{ advert.author.user.username }} /
+                    <small>{{ advert.time_create }}</small>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
+
+{% if request.user.is_authenticated %}
 <div class="card border-0">
-	<div class="card-body">
-		<h5 class="card-title">
-			Комментарии
-		</h5>
-		{% include 'blog/comments/comments_list.html' %}
-	</div>
+    <div class="card-body">
+        <h6 class="card-title">Форма добавления отклика</h6>
+        <form method="post" id="responseForm" action="{% url 'response_create' advert.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-grid gap-2 d-md-block mt-2">
+                <button type="submit" class="btn btn-primary">Добавить отклик</button>
+            </div>
+        </form>
+    </div>
 </div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#responseForm').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+                var newResponse = '<div class="card mb-2">' +
+                    '<div class="card-body">' +
+                    '<h6 class="card-subtitle mb-2 text-muted">' + response.author + '</h6>' +
+                    '<p class="card-text">' + response.response_text + '</p>' +
+                    '<small class="text-muted">' + response.time_create + '</small>' +
+                    '</div></div>';
+
+                $('#responses').prepend(newResponse);
+                $('#responseForm')[0].reset();
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+                alert('An error occurred. Please try again later.');
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

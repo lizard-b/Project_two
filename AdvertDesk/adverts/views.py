@@ -33,6 +33,7 @@ class AdvertsDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = self.object.title
         context['form'] = ResponseCreateForm
+        context['responses'] = self.object.responses.all()
         return context
 
 
@@ -138,8 +139,8 @@ class ResponseCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         response = form.save(commit=False)
-        response.article_id = self.kwargs.get('pk')
-        response.author = self.request.user
+        response.advert_id = self.kwargs.get('pk')
+        response.user = self.request.user
         response.parent_id = form.cleaned_data.get('parent')
         response.save()
 
@@ -147,15 +148,15 @@ class ResponseCreateView(LoginRequiredMixin, CreateView):
             return JsonResponse({
                 'is_child': response.is_child_node(),
                 'id': response.id,
-                'author': response.author.username,
+                'author': response.user.username,
                 'parent_id': response.parent_id,
                 'time_create': response.time_create.strftime('%Y-%b-%d %H:%M:%S'),
-                'avatar': response.author.profile.avatar.url,
-                'response_text': response.content,
-                'get_absolute_url': response.author.profile.get_absolute_url()
+                'avatar': response.user.profile.avatar.url,
+                'response_text': response.response_text,
+                'get_absolute_url': response.user.profile.get_absolute_url()
             }, status=200)
 
-        return redirect(response.article.get_absolute_url())
+        return redirect(response.advert.get_absolute_url())
 
     def handle_no_permission(self):
         return JsonResponse({'error': 'Необходимо авторизоваться для добавления откликов'}, status=400)

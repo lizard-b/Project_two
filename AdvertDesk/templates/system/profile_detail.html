@@ -28,6 +28,52 @@
                     </form>
                     </div>
                 </div>
+                <div class="col-md-8">
+                    <h3>Объявления пользователя</h3>
+                    {% if adverts %}
+                        {% for advert in adverts %}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{{ advert.get_absolute_url }}">{{ advert.title }}</a></h5>
+                                    <p class="card-text">{{ advert.short_content|truncatewords:30 }}</p>
+                                    <p class="card-text"><small class="text-muted">Создано: {{ advert.time_create }}</small></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>У пользователя пока нет объявлений.</p>
+                    {% endif %}
+
+                    <h3>Отклики пользователя</h3>
+                    {% if user_responses %}
+                        {% for response in user_responses %}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Отклик на объявление: <a href="{{ response.advert.get_absolute_url }}">{{ response.advert.title }}</a></h5>
+                                    <p class="card-text">{{ response.response_text|truncatewords:30 }}</p>
+                                    <p class="card-text"><small class="text-muted">Создано: {{ response.time_create }}</small></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>У пользователя пока нет откликов.</p>
+                    {% endif %}
+
+                    <h3>Отклики на объявления пользователя</h3>
+                    {% if advert_responses %}
+                        {% for response in advert_responses %}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Отклик от: {{ response.user.username }} на объявление: <a href="{{ response.advert.get_absolute_url }}">{{ response.advert.title }}</a></h5>
+                                    <p class="card-text">{{ response.response_text|truncatewords:30 }}</p>
+                                    <p class="card-text"><small class="text-muted">Создано: {{ response.time_create }}</small></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>На объявления пользователя пока нет откликов.</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
 </div>
