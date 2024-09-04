@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy, reverse
+from django.views import View
 from django.views.generic import (ListView, DetailView,
                                   CreateView, UpdateView, DeleteView)
 
@@ -138,6 +139,11 @@ class ResponseCreateView(LoginRequiredMixin, CreateView):
         return super().form_invalid(form)
 
     def form_valid(self, form):
+        advert = get_object_or_404(Advert, pk=self.kwargs.get('pk'))
+        if advert.author.user == self.request.user:
+            if self.is_ajax():
+                return JsonResponse({'error': 'Вы не можете оставлять отклик на собственное объявление.'}, status=400)
+            return redirect(advert.get_absolute_url())
         response = form.save(commit=False)
         response.advert_id = self.kwargs.get('pk')
         response.user = self.request.user
@@ -161,4 +167,20 @@ class ResponseCreateView(LoginRequiredMixin, CreateView):
     def handle_no_permission(self):
         return JsonResponse({'error': 'Необходимо авторизоваться для добавления откликов'}, status=400)
 
+
+class DeleteResponseView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        response = get_object_or_404(Response, pk=pk)
+        if response.user == request.user or response.advert.author.user == request.user:
+            response.delete()
+        return redirect(reverse('profile_detail', kwargs={'slug': request.user.profile.slug}))
+
+
+class AcceptResponseView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        response = get_object_or_404(Response, pk=pk)
+        if response.advert.author.user == request.user:
+            response.status = 'accepted'
+            response.save()
+        return redirect(reverse('profile_detail', kwargs={'slug': request.user.profile.slug}))
 # Create your views here.

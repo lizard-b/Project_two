@@ -28,53 +28,48 @@
                     </form>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <h3>Объявления пользователя</h3>
-                    {% if adverts %}
-                        {% for advert in adverts %}
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="{{ advert.get_absolute_url }}">{{ advert.title }}</a></h5>
-                                    <p class="card-text">{{ advert.short_content|truncatewords:30 }}</p>
-                                    <p class="card-text"><small class="text-muted">Создано: {{ advert.time_create }}</small></p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <p>У пользователя пока нет объявлений.</p>
-                    {% endif %}
+                <h3>Ваши отклики</h3>
+                {% for response in user_responses %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Отклик на: {{ response.advert.title }}</h5>
+                            <p>{{ response.response_text }}</p>
+                            <p>Статус: {{ response.get_status_display }}</p>
+                            <form method="post" action="{% url 'delete_response' response.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>У вас пока нет откликов.</p>
+                {% endfor %}
 
-                    <h3>Отклики пользователя</h3>
-                    {% if user_responses %}
-                        {% for response in user_responses %}
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Отклик на объявление: <a href="{{ response.advert.get_absolute_url }}">{{ response.advert.title }}</a></h5>
-                                    <p class="card-text">{{ response.response_text|truncatewords:30 }}</p>
-                                    <p class="card-text"><small class="text-muted">Создано: {{ response.time_create }}</small></p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <p>У пользователя пока нет откликов.</p>
-                    {% endif %}
-
-                    <h3>Отклики на объявления пользователя</h3>
-                    {% if advert_responses %}
-                        {% for response in advert_responses %}
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Отклик пользователя {{ response.user.username }} на объявление: <a href="{{ response.advert.get_absolute_url }}">{{ response.advert.title }}</a></h5>
-                                    <p class="card-text">{{ response.response_text|truncatewords:30 }}</p>
-                                    <p class="card-text"><small class="text-muted">Создано: {{ response.time_create }}</small></p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <p>На объявления пользователя пока нет откликов.</p>
-                    {% endif %}
-                </div>
+                <h3>Отклики на ваши объявления</h3>
+                {% for response in advert_responses %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Отклик от: {{ response.user.username }}</h5>
+                            <p>Объявление: {{ response.advert.title }}</p>
+                            <p>{{ response.response_text }}</p>
+                            <p>Статус: {{ response.get_status_display }}</p>
+                            {% if response.status == 'pending' %}
+                                <form method="post" action="{% url 'accept_response' response.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success">Принять</button>
+                                </form>
+                            {% endif %}
+                            <form method="post" action="{% url 'delete_response' response.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% empty %}
+                        <p>На ваши объявления пока нет откликов.</p>
+                    {% endfor %}
             </div>
         </div>
 </div>
+
 {% endblock %}

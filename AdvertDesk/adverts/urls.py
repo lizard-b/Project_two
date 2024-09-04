@@ -2,7 +2,7 @@ from django.urls import path
 
 from .models import Response
 from .views import (AdvertsListView, AdvertsDetailView, AdvertsByCategoryListView, AdvertCreateView, AdvertUpdateView,
-                    AdvertDeleteView, ResponseCreateView,
+                    AdvertDeleteView, ResponseCreateView, DeleteResponseView, AcceptResponseView,
                     )
 
 urlpatterns = [
@@ -13,4 +13,6 @@ urlpatterns = [
     path('adverts/<str:slug>/', AdvertsDetailView.as_view(), name='adverts_detail'),
     path('advert/<int:pk>/response/create/', ResponseCreateView.as_view(), name='response_create'),
     path('category/<str:slug>/', AdvertsByCategoryListView.as_view(), name='adverts_by_category'),
+    path('response/<int:pk>/delete/', DeleteResponseView.as_view(), name='delete_response'),
+    path('response/<int:pk>/accept/', AcceptResponseView.as_view(), name='accept_response'),
 ]

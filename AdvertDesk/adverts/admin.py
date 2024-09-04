@@ -25,13 +25,11 @@ class AdvertAdmin(admin.ModelAdmin):
 
 
 @admin.register(Response)
-class ResponseAdminPage(DraggableMPTTAdmin):
+class ResponseAdminPage(admin.ModelAdmin):
     """
     Админ-панель модели откликов
     """
-    list_display = ('tree_actions', 'indented_title', 'advert', 'user', 'time_create', 'status')
-    mptt_level_indent = 2
-    list_display_links = ('advert',)
+    list_display = ('advert', 'user', 'time_create', 'status')
     list_filter = ('time_create', 'time_update', 'user')
     list_editable = ('status',)
 

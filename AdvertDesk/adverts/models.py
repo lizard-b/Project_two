@@ -31,11 +31,6 @@ def create_author(sender, instance, created, **kwargs):
         Author.objects.create(user=instance)
 
 
-@receiver(post_save, sender=User)
-def save_author(sender, instance, **kwargs):
-    instance.profile.save()
-
-
 class Category(MPTTModel):
     """
     Модель категорий с вложенностью
@@ -136,38 +131,34 @@ class Advert(models.Model):
         super().save(*args, **kwargs)
 
 
-class Response(MPTTModel):
+class Response(models.Model):
     """
-        Модель древовидных откликов
+        Модель откликов
     """
-    STATUS_OPTIONS = (
-        ('published', 'Опубликовано'),
-        ('draft', 'Черновик')
+    STATUS_CHOICES = (
+        ('pending', 'Ожидает рассмотрения'),
+        ('accepted', 'Принят'),
+        ('rejected', 'Отклонен'),
     )
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор отклика',
+                             related_name='response_author')
+    advert = models.ForeignKey(Advert, on_delete=models.CASCADE, verbose_name='Объявление', related_name='responses')
+    response_text = models.TextField(verbose_name='Текст отклика', max_length=3000, default="There is no response yet.")
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(verbose_name='Время обновления', auto_now=True)
-    response_text = models.TextField(verbose_name='Текст отклика', max_length=3000, default="There is no response yet.")
-    advert = models.ForeignKey(Advert, on_delete=models.CASCADE, verbose_name='Объявление', related_name='responses')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор отклика',
-                             related_name='advert_response')
-    status = models.CharField(choices=STATUS_OPTIONS, default='published', verbose_name='Статус отклика', max_length=10)
-    parent = TreeForeignKey('self', verbose_name='Родительский отклик', null=True, blank=True,
-                            related_name='children', on_delete=models.CASCADE)
-
-    class MTTMeta:
-        order_insertion_by = ('-time_create',)
+    status = models.CharField(choices=STATUS_CHOICES, default='pending', verbose_name='Статус отклика', max_length=10)
 
     class Meta:
         """
         Название модели в админ панели
         """
-        indexes = [models.Index(fields=['-time_create', 'time_update', 'status', 'parent'])]
+        indexes = [models.Index(fields=['-time_create', 'time_update', 'status', ])]
         ordering = ['-time_create']
         verbose_name = 'Отклик'
         verbose_name_plural = 'Отклики'
 
     def __str__(self):
-        return f'{self.user}: {self.response_text}'
+        return f"Отклик от {self.user.username} на {self.advert.title}"
 
 # Create your models here.
